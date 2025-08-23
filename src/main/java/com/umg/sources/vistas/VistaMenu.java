@@ -32,6 +32,7 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         BtnMetSimplex = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(400, 300));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -48,32 +49,37 @@ public class VistaMenu extends javax.swing.JPanel {
         BtnMetGrafico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnMetGrafico.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Metodo Grafico");
         BtnMetGrafico.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jPanel1.add(BtnMetGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 120, 40));
+        jPanel1.add(BtnMetGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 140, 40));
 
         BtnMetSimplex.setBackground(new java.awt.Color(153, 204, 255));
         BtnMetSimplex.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnMetSimplex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Metodo Simplex");
-        BtnMetSimplex.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        BtnMetSimplex.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jPanel1.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 120, 40));
+        jPanel1.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 140, 40));
+
+        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 140, 40));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 6, 700, 390));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BtnMetGrafico;
-    private javax.swing.JPanel BtnMetSimplex;
+    public javax.swing.JPanel BtnMetGrafico;
+    public javax.swing.JPanel BtnMetSimplex;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
