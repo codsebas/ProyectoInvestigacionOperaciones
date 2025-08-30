@@ -4,6 +4,10 @@
  */
 package com.umg.sources.vistas;
 
+import javax.swing.*;
+import com.umg.sources.modelo.ModeloMetodoGrafico;
+import com.umg.sources.controlador.ControladorMetodoGrafico;
+
 /**
  *
  * @author keyor
@@ -15,6 +19,9 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
      */
     public VistaMetodoGrafico() {
         initComponents();
+        ModeloMetodoGrafico modelo = new ModeloMetodoGrafico(this);
+        ControladorMetodoGrafico controlador = new ControladorMetodoGrafico(modelo);
+        setControlador(controlador);
     }
 
     /**
@@ -26,7 +33,7 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        contenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         PanelGrafica = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -34,8 +41,8 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         CmbOpciones = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         TxtRestriccion1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        TxtRestriccion2 = new javax.swing.JTextField();
+        TxtRestriccion3 = new javax.swing.JTextField();
         BtnMenu = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         BtnGenerar = new javax.swing.JPanel();
@@ -44,15 +51,15 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         TxtResultado = new javax.swing.JTextField();
-        TxtRestriccon4 = new javax.swing.JTextField();
+        TxtRestriccion4 = new javax.swing.JTextField();
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 204));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        contenedor.setBackground(new java.awt.Color(0, 153, 204));
+        contenedor.setPreferredSize(new java.awt.Dimension(800, 500));
+        contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel1.setText("Metodo Grafico");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
+        contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
 
         javax.swing.GroupLayout PanelGraficaLayout = new javax.swing.GroupLayout(PanelGrafica);
         PanelGrafica.setLayout(PanelGraficaLayout);
@@ -65,24 +72,24 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel1.add(PanelGrafica, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 390, 230));
+        contenedor.add(PanelGrafica, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 390, 230));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Z");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 10, -1));
+        contenedor.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 10, -1));
 
         TxtZ.setBackground(new java.awt.Color(0, 153, 204));
         TxtZ.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 120, -1));
+        contenedor.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 120, -1));
 
         CmbOpciones.setBackground(new java.awt.Color(102, 204, 255));
         CmbOpciones.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         CmbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minimizacion", "Maximizacion" }));
-        jPanel1.add(CmbOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
+        contenedor.add(CmbOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Restricciones");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
+        contenedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
 
         TxtRestriccion1.setBackground(new java.awt.Color(0, 153, 204));
         TxtRestriccion1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -91,25 +98,25 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
                 TxtRestriccion1ActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtRestriccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 120, -1));
+        contenedor.add(TxtRestriccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 120, -1));
 
-        jTextField2.setBackground(new java.awt.Color(0, 153, 204));
-        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        TxtRestriccion2.setBackground(new java.awt.Color(0, 153, 204));
+        TxtRestriccion2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TxtRestriccion2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                TxtRestriccion2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 120, -1));
+        contenedor.add(TxtRestriccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 120, -1));
 
-        jTextField3.setBackground(new java.awt.Color(0, 153, 204));
-        jTextField3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        TxtRestriccion3.setBackground(new java.awt.Color(0, 153, 204));
+        TxtRestriccion3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TxtRestriccion3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                TxtRestriccion3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 120, 20));
+        contenedor.add(TxtRestriccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 120, 20));
 
         BtnMenu.setBackground(new java.awt.Color(102, 204, 255));
         BtnMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -119,7 +126,7 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         jLabel4.setText("Menu");
         BtnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        jPanel1.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 120, 40));
+        contenedor.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 120, 40));
 
         BtnGenerar.setBackground(new java.awt.Color(102, 204, 255));
         BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -129,7 +136,7 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         jLabel5.setText("Generar");
         BtnGenerar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 8, -1, -1));
 
-        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, 120, 40));
+        contenedor.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, 120, 40));
 
         BtnLimpiar.setBackground(new java.awt.Color(102, 204, 255));
         BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -139,11 +146,11 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         jLabel6.setText("Limpiar");
         BtnLimpiar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 6, -1, -1));
 
-        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, 120, 40));
+        contenedor.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, 120, 40));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel7.setText("Resultado");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+        contenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
 
         TxtResultado.setBackground(new java.awt.Color(0, 153, 204));
         TxtResultado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -152,37 +159,37 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
                 TxtResultadoActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 140, 30));
+        contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 140, 30));
 
-        TxtRestriccon4.setBackground(new java.awt.Color(0, 153, 204));
-        TxtRestriccon4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(TxtRestriccon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 337, 120, 30));
+        TxtRestriccion4.setBackground(new java.awt.Color(0, 153, 204));
+        TxtRestriccion4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        contenedor.add(TxtRestriccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 337, 120, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void TxtRestriccion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRestriccion2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_TxtRestriccion2ActionPerformed
 
     private void TxtRestriccion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRestriccion1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtRestriccion1ActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void TxtRestriccion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRestriccion3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_TxtRestriccion3ActionPerformed
 
     private void TxtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtResultadoActionPerformed
         // TODO add your handling code here:
@@ -196,9 +203,12 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
     public javax.swing.JComboBox<String> CmbOpciones;
     public javax.swing.JPanel PanelGrafica;
     public javax.swing.JTextField TxtRestriccion1;
-    public javax.swing.JTextField TxtRestriccon4;
+    public javax.swing.JTextField TxtRestriccion2;
+    public javax.swing.JTextField TxtRestriccion3;
+    public javax.swing.JTextField TxtRestriccion4;
     public javax.swing.JTextField TxtResultado;
     public javax.swing.JTextField TxtZ;
+    public javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -206,8 +216,12 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    public javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
+    public void setControlador(ControladorMetodoGrafico controlador){
+        BtnGenerar.addMouseListener(controlador);
+        BtnLimpiar.addMouseListener(controlador);
+        BtnMenu.addMouseListener(controlador);
+        CmbOpciones.addActionListener(controlador);
+    }
 }

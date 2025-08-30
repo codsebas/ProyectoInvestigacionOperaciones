@@ -4,6 +4,10 @@
  */
 package com.umg.sources.vistas;
 
+import javax.swing.JPanel;
+import com.umg.sources.modelo.ModeloMenu;
+import com.umg.sources.vistas.VistaMenu;
+import com.umg.sources.controlador.ControladorMenu;
 /**
  *
  * @author sebas
@@ -15,6 +19,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
      */
     public VistaPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        ModeloMenu modelo = new ModeloMenu();
+        VistaMenu vista = new VistaMenu();
+        new ControladorMenu(modelo, vista, this);
+        cambiarPanel(vista);
+    }
+    
+    public void cambiarPanel(JPanel nuevoPanel){
+        contenedor.removeAll();
+        contenedor.add(nuevoPanel);
+        contenedor.revalidate();
+        contenedor.repaint();
     }
 
     /**
@@ -26,18 +42,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        contenedor = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 500));
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(800, 500));
+
+        contenedor.setMaximumSize(new java.awt.Dimension(800, 500));
+        contenedor.setMinimumSize(new java.awt.Dimension(800, 500));
+        contenedor.setPreferredSize(new java.awt.Dimension(800, 500));
+        contenedor.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(contenedor, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,5 +94,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JPanel contenedor;
     // End of variables declaration//GEN-END:variables
 }

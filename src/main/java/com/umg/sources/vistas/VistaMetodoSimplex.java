@@ -26,7 +26,7 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        contenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         PanelTabla = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -48,14 +48,14 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 204));
-        jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        contenedor.setBackground(new java.awt.Color(0, 153, 204));
+        contenedor.setMinimumSize(new java.awt.Dimension(800, 500));
+        contenedor.setPreferredSize(new java.awt.Dimension(800, 500));
+        contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel1.setText("Metodo Simplex");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, -1, -1));
+        contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, -1, -1));
 
         javax.swing.GroupLayout PanelTablaLayout = new javax.swing.GroupLayout(PanelTabla);
         PanelTabla.setLayout(PanelTablaLayout);
@@ -68,15 +68,15 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel1.add(PanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 390, 220));
+        contenedor.add(PanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 390, 220));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Z");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, 20));
+        contenedor.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, 20));
 
         TxtZ.setBackground(new java.awt.Color(0, 153, 204));
         TxtZ.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 150, 40));
+        contenedor.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 150, 40));
 
         CmbOpciones.setBackground(new java.awt.Color(102, 204, 255));
         CmbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minimizacion", "Maximizacion" }));
@@ -85,19 +85,19 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
                 CmbOpcionesActionPerformed(evt);
             }
         });
-        jPanel1.add(CmbOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
+        contenedor.add(CmbOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Resultado");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
+        contenedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
 
         TxtResultado.setBackground(new java.awt.Color(0, 153, 204));
         TxtResultado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 117, 170, 30));
+        contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 117, 170, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Restricciones");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, 20));
+        contenedor.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, 20));
 
         TxtRestriccion1.setBackground(new java.awt.Color(0, 153, 204));
         TxtRestriccion1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -106,7 +106,7 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
                 TxtRestriccion1ActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtRestriccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 227, 140, 30));
+        contenedor.add(TxtRestriccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 227, 140, 30));
 
         TxtRestriccion2.setBackground(new java.awt.Color(0, 153, 204));
         TxtRestriccion2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -115,7 +115,7 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
                 TxtRestriccion2ActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtRestriccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 140, 30));
+        contenedor.add(TxtRestriccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 140, 30));
 
         TxtRestricciion2.setBackground(new java.awt.Color(0, 153, 204));
         TxtRestricciion2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -124,11 +124,11 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
                 TxtRestricciion2ActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtRestricciion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 140, 30));
+        contenedor.add(TxtRestricciion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 140, 30));
 
         TxtRestriccion4.setBackground(new java.awt.Color(0, 153, 204));
         TxtRestriccion4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(TxtRestriccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 337, 140, 30));
+        contenedor.add(TxtRestriccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 337, 140, 30));
 
         BtnGenerar.setBackground(new java.awt.Color(102, 204, 255));
         BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -138,7 +138,7 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
         jLabel6.setText("Generar");
         BtnGenerar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 6, -1, -1));
 
-        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 210, 110, 30));
+        contenedor.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 210, 110, 30));
 
         BtnLimpiar.setBackground(new java.awt.Color(102, 204, 255));
         BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -148,7 +148,7 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
         jLabel7.setText("Limpiar");
         BtnLimpiar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 6, -1, -1));
 
-        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 260, 110, 30));
+        contenedor.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 260, 110, 30));
 
         BtnMenu.setBackground(new java.awt.Color(51, 204, 255));
         BtnMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -158,17 +158,17 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
         jLabel8.setText("Menu");
         BtnMenu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 6, -1, -1));
 
-        jPanel1.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 130, 30));
+        contenedor.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 130, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -201,6 +201,7 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
     public javax.swing.JTextField TxtRestriccion4;
     public javax.swing.JTextField TxtResultado;
     public javax.swing.JTextField TxtZ;
+    public javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -208,6 +209,5 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

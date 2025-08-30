@@ -4,6 +4,8 @@
  */
 package com.umg.sources.vistas;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author keyor
@@ -16,6 +18,14 @@ public class VistaMenu extends javax.swing.JPanel {
     public VistaMenu() {
         initComponents();
     }
+    
+    public JPanel getBtnMetGrafico(){
+        return BtnMetGrafico;
+    }
+    
+    public JPanel getBtnMetSimplex(){
+        return BtnMetSimplex;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,20 +36,20 @@ public class VistaMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        contenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         BtnMetGrafico = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         BtnMetSimplex = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 204));
-        jPanel1.setPreferredSize(new java.awt.Dimension(700, 400));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        contenedor.setBackground(new java.awt.Color(0, 153, 204));
+        contenedor.setPreferredSize(new java.awt.Dimension(700, 400));
+        contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel1.setText("Investigacion de Operaciones");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+        contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
 
         BtnMetGrafico.setBackground(new java.awt.Color(102, 204, 255));
         BtnMetGrafico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -51,7 +61,7 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel2.setText("Metodo Grafico");
         BtnMetGrafico.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 16));
 
-        jPanel1.add(BtnMetGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 139, 40));
+        contenedor.add(BtnMetGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 139, 40));
 
         BtnMetSimplex.setBackground(new java.awt.Color(102, 204, 255));
         BtnMetSimplex.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -62,7 +72,7 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel3.setText("Metodo Simplex");
         BtnMetSimplex.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 8, -1, -1));
 
-        jPanel1.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 140, 40));
+        contenedor.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 140, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,13 +80,13 @@ public class VistaMenu extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -85,9 +95,9 @@ public class VistaMenu extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel BtnMetGrafico;
     public javax.swing.JPanel BtnMetSimplex;
+    public javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
