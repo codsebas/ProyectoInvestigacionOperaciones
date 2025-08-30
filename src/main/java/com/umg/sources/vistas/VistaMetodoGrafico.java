@@ -159,7 +159,7 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
                 TxtResultadoActionPerformed(evt);
             }
         });
-        contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 140, 30));
+        contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 250, 30));
 
         TxtRestriccion4.setBackground(new java.awt.Color(0, 153, 204));
         TxtRestriccion4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
