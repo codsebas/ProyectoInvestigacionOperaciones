@@ -8,11 +8,19 @@ import javax.swing.*;
 import com.umg.sources.modelo.ModeloMetodoGrafico;
 import com.umg.sources.controlador.ControladorMetodoGrafico;
 
+// imports extra para la gráfica
+import java.awt.*;
+import java.awt.geom.*;
+import java.util.*;
+
 /**
  *
  * @author keyor
  */
 public class VistaMetodoGrafico extends javax.swing.JPanel {
+
+    // === Canvas para dibujar en PanelGrafica (clase interna, SIN archivo nuevo) ===
+    private final CanvasGrafico canvas = new CanvasGrafico();
 
     /**
      * Creates new form VistaMetodoGrafico
@@ -22,6 +30,17 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         ModeloMetodoGrafico modelo = new ModeloMetodoGrafico(this);
         ControladorMetodoGrafico controlador = new ControladorMetodoGrafico(modelo);
         setControlador(controlador);
+
+        // ---- Integración del canvas en TU panel existente ----
+        PanelGrafica.setLayout(new java.awt.BorderLayout());
+        PanelGrafica.add(canvas, java.awt.BorderLayout.CENTER);
+    }
+
+    /**
+     * Permite al controlador dibujar región factible / rectas / objetivo / óptimo.
+     */
+    public void dibujar(double[][] A, double[] b, char[] signs, double[] cObj, double[] xopt){
+        canvas.setProblem(A, b, signs, cObj, xopt, true, new String[]{"x","y"});
     }
 
     /**
@@ -218,10 +237,321 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 
-    public void setControlador(ControladorMetodoGrafico controlador){
+     public void setControlador(ControladorMetodoGrafico controlador){
         BtnGenerar.addMouseListener(controlador);
         BtnLimpiar.addMouseListener(controlador);
         BtnMenu.addMouseListener(controlador);
         CmbOpciones.addActionListener(controlador);
+    }
+
+    // =================== CLASE INTERNA: CanvasGrafico ===================
+    private static class CanvasGrafico extends JPanel {
+        static class Restriccion {
+            final double a,b,c; final char sign;
+            Restriccion(double a,double b,double c,char sign){ this.a=a; this.b=b; this.c=c; this.sign=sign; }
+        }
+
+        private java.util.List<Restriccion> restricciones = new ArrayList<>();
+        private boolean incluirNoNegatividad = true; // x>=0, y>=0
+        private double[] objetivo; // [cx,cy] opcional
+        private double[] optimo;   // [x*,y*] opcional
+        private String xLabel = "x", yLabel = "y";
+
+        private double minX=0,maxX=10,minY=0,maxY=10;
+        private static final double EPS = 1e-9;
+
+        CanvasGrafico(){
+            setBackground(Color.WHITE);
+            setOpaque(true);
+        }
+
+        void setProblem(double[][] A, double[] b, char[] signs,
+                        double[] cObj, double[] xopt,
+                        boolean incluirNoNeg, String[] axisLabels){
+            if (A==null || A.length==0 || A[0].length!=2) throw new IllegalArgumentException("A debe ser m x 2");
+            if (b==null || b.length!=A.length) throw new IllegalArgumentException("b debe tener m elementos");
+            if (signs==null || signs.length!=A.length) throw new IllegalArgumentException("signs debe tener m elementos");
+            restricciones = new ArrayList<>();
+            for (int i=0;i<A.length;i++) restricciones.add(new Restriccion(A[i][0], A[i][1], b[i], signs[i]));
+            objetivo = cObj;
+            optimo = xopt;
+            incluirNoNegatividad = incluirNoNeg;
+            if (axisLabels!=null && axisLabels.length==2){ xLabel=axisLabels[0]; yLabel=axisLabels[1]; }
+            autoEscala();
+            repaint();
+        }
+
+        @Override protected void paintComponent(Graphics g){
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            Insets in = getInsets();
+            int W = getWidth() - in.left - in.right;
+            int H = getHeight() - in.top - in.bottom;
+
+            int padL=60,padR=20,padT=20,padB=60;
+            int plotX = in.left + padL, plotY = in.top + padT;
+            int plotW = Math.max(1, W - padL - padR);
+            int plotH = Math.max(1, H - padT - padB);
+
+            // Fondo
+            g2.setColor(new Color(248,248,248));
+            g2.fillRect(plotX, plotY, plotW, plotH);
+
+            // Ejes
+            dibujaEjes(g2, plotX, plotY, plotW, plotH);
+
+            // Región factible (si hay)
+            java.util.List<Point2D.Double> factible = regionFactible();
+            if (factible.size()>=3){
+                Shape poly = poligonoPantalla(factible, plotX, plotY, plotW, plotH);
+                g2.setColor(new Color(0,128,255,60));
+                g2.fill(poly);
+                g2.setColor(new Color(0,128,255,160));
+                g2.setStroke(new BasicStroke(1.6f));
+                g2.draw(poly);
+            }
+
+            // Fronteras
+            g2.setStroke(new BasicStroke(1.2f));
+            for (Restriccion r : restriccionesAumentadas()){
+                Shape linea = fronteraEnCaja(r, plotX, plotY, plotW, plotH);
+                if (linea != null){
+                    g2.setColor(new Color(80,80,80));
+                    g2.draw(linea);
+                }
+            }
+
+            // Recta objetivo
+            if (objetivo != null){
+                Shape obj = rectaObjetivo(plotX, plotY, plotW, plotH);
+                if (obj != null){
+                    g2.setColor(new Color(220,0,0));
+                    float[] dash={8f,6f};
+                    g2.setStroke(new BasicStroke(1.6f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10f, dash, 0f));
+                    g2.draw(obj);
+                }
+            }
+
+            // Punto óptimo
+            if (optimo != null){
+                Point p = mundoPantalla(optimo[0], optimo[1], plotX, plotY, plotW, plotH);
+                g2.setColor(new Color(0,100,0));
+                g2.fill(new Ellipse2D.Double(p.x-4,p.y-4,8,8));
+                g2.setColor(new Color(0,100,0));
+                g2.drawString(String.format(java.util.Locale.US,"(%.2f, %.2f)", optimo[0], optimo[1]), p.x+6, p.y-6);
+            }
+
+            g2.dispose();
+        }
+
+        // ---- Geometría ----
+        private java.util.List<Restriccion> restriccionesAumentadas(){
+            java.util.List<Restriccion> list = new ArrayList<>(restricciones);
+            if (incluirNoNegatividad){
+                list.add(new Restriccion(1,0,0,'>')); // x>=0
+                list.add(new Restriccion(0,1,0,'>')); // y>=0
+            }
+            return list;
+        }
+
+        private java.util.List<Point2D.Double> regionFactible(){
+            java.util.List<Restriccion> ls = restriccionesAumentadas();
+            java.util.List<Point2D.Double> pts = new ArrayList<>();
+            for (int i=0;i<ls.size();i++){
+                for (int j=i+1;j<ls.size();j++){
+                    Point2D.Double p = interseccion(ls.get(i), ls.get(j));
+                    if (p!=null && Double.isFinite(p.x) && Double.isFinite(p.y)){
+                        if (esFactible(p.x, p.y, ls)) pts.add(p);
+                    }
+                }
+            }
+            return cascoConvexo(pts);
+        }
+
+        private boolean esFactible(double x, double y, java.util.List<Restriccion> ls){
+            for (Restriccion r: ls){
+                double lhs = r.a*x + r.b*y;
+                if (r.sign=='<' && lhs > r.c + 1e-7) return false;
+                if (r.sign=='>' && lhs < r.c - 1e-7) return false;
+                if (r.sign=='=' && Math.abs(lhs - r.c) > 1e-7) return false;
+            }
+            return true;
+        }
+
+        private Point2D.Double interseccion(Restriccion r1, Restriccion r2){
+            double d = r1.a*r2.b - r2.a*r1.b;
+            if (Math.abs(d) < EPS) return null;
+            double x = (r1.c*r2.b - r2.c*r1.b)/d;
+            double y = (r1.a*r2.c - r2.a*r1.c)/d;
+            return new Point2D.Double(x,y);
+        }
+
+        private java.util.List<Point2D.Double> cascoConvexo(java.util.List<Point2D.Double> pts){
+            java.util.List<Point2D.Double> P = new ArrayList<>(pts);
+            P.sort(Comparator.<Point2D.Double>comparingDouble(p->p.x).thenComparingDouble(p->p.y));
+            java.util.List<Point2D.Double> lower=new ArrayList<>(), upper=new ArrayList<>();
+            for (Point2D.Double p: P){
+                while (lower.size()>=2 && cruz(lower.get(lower.size()-2), lower.get(lower.size()-1), p) <= 0) lower.remove(lower.size()-1);
+                lower.add(p);
+            }
+            for (int i=P.size()-1;i>=0;i--){
+                Point2D.Double p=P.get(i);
+                while (upper.size()>=2 && cruz(upper.get(upper.size()-2), upper.get(upper.size()-1), p) <= 0) upper.remove(upper.size()-1);
+                upper.add(p);
+            }
+            if (!lower.isEmpty()) lower.remove(lower.size()-1);
+            if (!upper.isEmpty()) upper.remove(upper.size()-1);
+            lower.addAll(upper);
+            return lower;
+        }
+        private double cruz(Point2D.Double a, Point2D.Double b, Point2D.Double c){
+            return (b.x-a.x)*(c.y-a.y) - (b.y-a.y)*(c.x-a.x);
+        }
+
+        private void autoEscala(){
+            java.util.List<Restriccion> ls = restriccionesAumentadas();
+            java.util.Set<Point2D.Double> pts = new HashSet<>();
+            for (int i=0;i<ls.size();i++){
+                for (int j=i+1;j<ls.size();j++){
+                    Point2D.Double p = interseccion(ls.get(i), ls.get(j));
+                    if (p!=null && Double.isFinite(p.x) && Double.isFinite(p.y)) pts.add(p);
+                }
+            }
+            if (optimo!=null) pts.add(new Point2D.Double(optimo[0], optimo[1]));
+            double minx=0,miny=0,maxx=10,maxy=10;
+            if (!pts.isEmpty()){
+                minx = pts.stream().mapToDouble(p->p.x).min().orElse(0);
+                miny = pts.stream().mapToDouble(p->p.y).min().orElse(0);
+                maxx = pts.stream().mapToDouble(p->p.x).max().orElse(10);
+                maxy = pts.stream().mapToDouble(p->p.y).max().orElse(10);
+                if (incluirNoNegatividad){ minx=Math.min(0,minx); miny=Math.min(0,miny); }
+                double dx=maxx-minx, dy=maxy-miny;
+                if (dx<1){ minx-=0.5; maxx+=0.5; }
+                if (dy<1){ miny-=0.5; maxy+=0.5; }
+                double mx=(maxx-minx)*0.15, my=(maxy-miny)*0.15;
+                minX=minx-mx; maxX=maxx+mx; minY=miny-my; maxY=maxy+my;
+            } else {
+                minX=0; maxX=10; minY=0; maxY=10;
+            }
+            if (Math.abs(maxX-minX) < 1e-6) maxX=minX+1;
+            if (Math.abs(maxY-minY) < 1e-6) maxY=minY+1;
+        }
+
+        // ---- Dibujo de ejes/grilla ----
+        private void dibujaEjes(Graphics2D g2, int x,int y,int w,int h){
+            double[] niceX = ticksLindos(minX, maxX, 8);
+            double[] niceY = ticksLindos(minY, maxY, 8);
+            g2.setColor(new Color(220,220,220));
+            for (double vx: niceX){
+                Point p = mundoPantalla(vx, minY, x,y,w,h);
+                Point q = mundoPantalla(vx, maxY, x,y,w,h);
+                g2.drawLine(p.x, p.y, q.x, q.y);
+            }
+            for (double vy: niceY){
+                Point p = mundoPantalla(minX, vy, x,y,w,h);
+                Point q = mundoPantalla(maxX, vy, x,y,w,h);
+                g2.drawLine(p.x, p.y, q.x, q.y);
+            }
+            g2.setColor(Color.BLACK);
+            if (minY<=0 && maxY>=0){
+                Point p0 = mundoPantalla(minX,0, x,y,w,h);
+                Point p1 = mundoPantalla(maxX,0, x,y,w,h);
+                g2.drawLine(p0.x,p0.y,p1.x,p1.y);
+            }
+            if (minX<=0 && maxX>=0){
+                Point p0 = mundoPantalla(0,minY, x,y,w,h);
+                Point p1 = mundoPantalla(0,maxY, x,y,w,h);
+                g2.drawLine(p0.x,p0.y,p1.x,p1.y);
+            }
+            g2.setFont(g2.getFont().deriveFont(11f));
+            g2.setColor(new Color(40,40,40));
+            for (double vx: niceX){
+                Point p = mundoPantalla(vx, 0, x,y,w,h);
+                g2.drawString(formatoTick(vx), p.x-8, y+h+16);
+            }
+            for (double vy: niceY){
+                Point p = mundoPantalla(0, vy, x,y,w,h);
+                g2.drawString(formatoTick(vy), x-36, p.y+4);
+            }
+            g2.drawString(xLabel, x+w-12, y+h+30);
+            g2.drawString(yLabel, x-28, y+12);
+        }
+
+        private Shape fronteraEnCaja(Restriccion r, int x,int y,int w,int h){
+            java.util.List<Point> pts = new ArrayList<>();
+            double[] xs={minX,maxX}, ys={minY,maxY};
+            for (double xv: xs){
+                if (Math.abs(r.b) > EPS){
+                    double yv = (r.c - r.a*xv)/r.b;
+                    if (yv>=minY-1e-6 && yv<=maxY+1e-6) pts.add(mundoPantalla(xv,yv, x,y,w,h));
+                }
+            }
+            for (double yv: ys){
+                if (Math.abs(r.a) > EPS){
+                    double xv = (r.c - r.b*yv)/r.a;
+                    if (xv>=minX-1e-6 && xv<=maxX+1e-6) pts.add(mundoPantalla(xv,yv, x,y,w,h));
+                }
+            }
+            if (pts.size()<2) return null;
+            Point p0=pts.get(0), p1=pts.get(pts.size()-1);
+            return new Line2D.Double(p0, p1);
+        }
+
+        private Shape rectaObjetivo(int x,int y,int w,int h){
+            if (objetivo==null) return null;
+            double cx=objetivo[0], cy=objetivo[1];
+            if (Math.abs(cx)<EPS && Math.abs(cy)<EPS) return null;
+            double Z;
+            if (optimo!=null) Z=cx*optimo[0]+cy*optimo[1];
+            else {
+                double mx=(minX+maxX)/2.0, my=(minY+maxY)/2.0;
+                Z = cx*mx + cy*my;
+            }
+            Restriccion r = new Restriccion(cx,cy,Z,'=');
+            return fronteraEnCaja(r, x,y,w,h);
+        }
+
+        private Shape poligonoPantalla(java.util.List<Point2D.Double> pts, int x,int y,int w,int h){
+            Path2D path = new Path2D.Double();
+            for (int i=0;i<pts.size();i++){
+                Point p = mundoPantalla(pts.get(i).x, pts.get(i).y, x,y,w,h);
+                if (i==0) path.moveTo(p.x,p.y); else path.lineTo(p.x,p.y);
+            }
+            path.closePath(); return path;
+        }
+
+        private Point mundoPantalla(double X,double Y, int x,int y,int w,int h){
+            double sx=(X-minX)/(maxX-minX), sy=(Y-minY)/(maxY-minY);
+            int px=(int)Math.round(x + sx*w);
+            int py=(int)Math.round(y + (1-sy)*h);
+            return new Point(px,py);
+        }
+
+        private String formatoTick(double v){
+            double av=Math.abs(v);
+            if (av>=1000) return String.format(java.util.Locale.US,"%.0f",v);
+            if (av>=100)  return String.format(java.util.Locale.US,"%.1f",v);
+            if (av>=10)   return String.format(java.util.Locale.US,"%.2f",v);
+            return String.format(java.util.Locale.US,"%.2f",v);
+        }
+        private double[] ticksLindos(double min,double max,int maxTicks){
+            double rango = niceNum(max-min,false);
+            double paso  = niceNum(rango/(maxTicks-1), true);
+            double nmin = Math.floor(min/paso)*paso;
+            double nmax = Math.ceil (max/paso)*paso;
+            java.util.List<Double> list=new ArrayList<>();
+            for (double v=nmin; v<=nmax+0.5*paso; v+=paso) list.add(v);
+            return list.stream().mapToDouble(Double::doubleValue).toArray();
+        }
+        private double niceNum(double range, boolean round){
+            double exp=Math.floor(Math.log10(range));
+            double f=range/Math.pow(10,exp);
+            double nf;
+            if (round){ if (f<1.5) nf=1; else if (f<3) nf=2; else if (f<7) nf=5; else nf=10; }
+            else      { if (f<=1) nf=1; else if (f<=2) nf=2; else if (f<=5) nf=5; else nf=10; }
+            return nf*Math.pow(10,exp);
+        }
     }
 }

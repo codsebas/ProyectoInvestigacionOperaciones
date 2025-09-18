@@ -34,7 +34,6 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
         vista.contenedor.repaint();
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals(modelo.getVista().CmbOpciones.getActionCommand())){
@@ -57,18 +56,14 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
             v.TxtRestriccion3.setText("");
             v.TxtRestriccion4.setText("");
             v.TxtResultado.setText("");
+            // limpiar canvas -> deja solo x>=0, y>=0 (sin objetivo)
+            v.dibujar(new double[][]{{1,0},{0,1}}, new double[]{0,0}, new char[]{'>','>'}, null, null);
             return;
         }
 
         if (e.getComponent().equals(v.BtnGenerar)) {
             try {
-                // 1) Objetivo: ejemplo "2x + 3y"
-
-                System.out.println("Z RAW=[" + v.TxtZ.getText() + "]");
-                for (char ch : v.TxtZ.getText().toCharArray()) {
-                    System.out.print((int) ch + " ");
-                }
-                System.out.println();
+                // 1) Objetivo
                 double[] c = NaturalParser.parseObjective(v.TxtZ.getText());
                 double c1 = c[0], c2 = c[1];
 
@@ -87,7 +82,6 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
                         var p = NaturalParser.parseConstraint(r);
                         cons.add(new LPSolver2D.Constraint(p.a, p.b, p.c, p.type));
                     } catch (IllegalArgumentException exR){
-                        // marca error puntual y aborta
                         JOptionPane.showMessageDialog(v,
                                 "Restricción " + (i+1) + " inválida:\n" + exR.getMessage(),
                                 "Error de entrada", JOptionPane.ERROR_MESSAGE);
@@ -105,10 +99,10 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
                 boolean maximize = v.CmbOpciones.getSelectedItem().toString()
                         .toLowerCase(Locale.ROOT).contains("max");
 
-                // 4) Resolver
+                // 4) Resolver (tu lógica existente)
                 var res = LPSolver2D.solve(cons, c1, c2, maximize);
 
-                // 5) Mostrar resultado en TxtResultado
+                // 5) Mostrar resultado en TxtResultado (tu comportamiento original)
                 if (!res.feasible) {
                     v.TxtResultado.setText("Infactible");
                 } else if (res.unbounded) {
@@ -118,6 +112,26 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
                             String.format(Locale.US, "x=%.4f, y=%.4f, Z=%.4f", res.x, res.y, res.z)
                     );
                 }
+
+                // 6) ---- Graficar con sombreado + auto-escala en TU PanelGrafica ----
+                // Convertir tus restricciones a A, b, signs
+                int m = cons.size();
+                double[][] A = new double[m][2];
+                double[] b = new double[m];
+                char[] signs = new char[m];
+                for (int i = 0; i < m; i++) {
+                    var ci = cons.get(i);
+                    A[i][0] = ci.a; A[i][1] = ci.b;
+                    b[i] = ci.c;
+                    if (ci.type == LPSolver2D.Type.LE) signs[i] = '<';
+                    else if (ci.type == LPSolver2D.Type.GE) signs[i] = '>';
+                    else signs[i] = '=';
+                }
+
+                double[] cObj = new double[]{c1, c2}; // recta objetivo (visual)
+                double[] xopt = (res.feasible && !res.unbounded) ? new double[]{res.x, res.y} : null;
+
+                v.dibujar(A, b, signs, cObj, xopt);
 
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(v,
@@ -131,23 +145,8 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    @Override public void mousePressed(MouseEvent e) { }
+    @Override public void mouseReleased(MouseEvent e) { }
+    @Override public void mouseEntered(MouseEvent e) { }
+    @Override public void mouseExited(MouseEvent e) { }
 }
