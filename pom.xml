@@ -9,13 +9,13 @@
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
-            <version>RELEASE190</version>
+            <version>RELEASE170</version>
         </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>com.umg.proyectoinvestigacionoperaciones.ProyectoInvestigacionOperaciones</exec.mainClass>
+          <exec.mainClass>com.umg.sources.vistas.VistaPrincipal</exec.mainClass>
     </properties>
 </project>
