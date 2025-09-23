@@ -53,11 +53,12 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         TxtResultado = new javax.swing.JTextField();
         TxtRestriccion4 = new javax.swing.JTextField();
 
-        contenedor.setBackground(new java.awt.Color(0, 153, 204));
+        contenedor.setBackground(new java.awt.Color(0, 0, 102));
         contenedor.setPreferredSize(new java.awt.Dimension(800, 500));
         contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Metodo Grafico");
         contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
 
@@ -75,85 +76,102 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         contenedor.add(PanelGrafica, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 390, 230));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setText("Z");
-        contenedor.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 10, -1));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Z:");
+        contenedor.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 20, -1));
 
-        TxtZ.setBackground(new java.awt.Color(0, 153, 204));
-        TxtZ.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        contenedor.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 120, -1));
+        TxtZ.setBackground(new java.awt.Color(0, 0, 102));
+        TxtZ.setForeground(new java.awt.Color(255, 255, 255));
+        TxtZ.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        TxtZ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtZActionPerformed(evt);
+            }
+        });
+        contenedor.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 140, -1));
 
-        CmbOpciones.setBackground(new java.awt.Color(102, 204, 255));
+        CmbOpciones.setBackground(new java.awt.Color(0, 0, 102));
         CmbOpciones.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        CmbOpciones.setForeground(new java.awt.Color(255, 255, 255));
         CmbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minimizacion", "Maximizacion" }));
         contenedor.add(CmbOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Restricciones");
         contenedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
 
-        TxtRestriccion1.setBackground(new java.awt.Color(0, 153, 204));
-        TxtRestriccion1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TxtRestriccion1.setBackground(new java.awt.Color(0, 0, 102));
+        TxtRestriccion1.setForeground(new java.awt.Color(255, 255, 255));
+        TxtRestriccion1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         TxtRestriccion1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtRestriccion1ActionPerformed(evt);
             }
         });
-        contenedor.add(TxtRestriccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 120, -1));
+        contenedor.add(TxtRestriccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 120, 30));
 
-        TxtRestriccion2.setBackground(new java.awt.Color(0, 153, 204));
-        TxtRestriccion2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TxtRestriccion2.setBackground(new java.awt.Color(0, 0, 102));
+        TxtRestriccion2.setForeground(new java.awt.Color(255, 255, 255));
+        TxtRestriccion2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         TxtRestriccion2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtRestriccion2ActionPerformed(evt);
             }
         });
-        contenedor.add(TxtRestriccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 120, -1));
+        contenedor.add(TxtRestriccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 120, 30));
 
-        TxtRestriccion3.setBackground(new java.awt.Color(0, 153, 204));
-        TxtRestriccion3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TxtRestriccion3.setBackground(new java.awt.Color(0, 0, 102));
+        TxtRestriccion3.setForeground(new java.awt.Color(255, 255, 255));
+        TxtRestriccion3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         TxtRestriccion3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtRestriccion3ActionPerformed(evt);
             }
         });
-        contenedor.add(TxtRestriccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 120, 20));
+        contenedor.add(TxtRestriccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 120, 30));
 
-        BtnMenu.setBackground(new java.awt.Color(102, 204, 255));
+        BtnMenu.setBackground(new java.awt.Color(102, 102, 102));
         BtnMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Menu");
         BtnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         contenedor.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 120, 40));
 
-        BtnGenerar.setBackground(new java.awt.Color(102, 204, 255));
+        BtnGenerar.setBackground(new java.awt.Color(102, 102, 102));
         BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnGenerar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Generar");
         BtnGenerar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 8, -1, -1));
 
         contenedor.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, 120, 40));
 
-        BtnLimpiar.setBackground(new java.awt.Color(102, 204, 255));
+        BtnLimpiar.setBackground(new java.awt.Color(102, 102, 102));
         BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Limpiar");
         BtnLimpiar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 6, -1, -1));
 
         contenedor.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, 120, 40));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setText("Resultado");
-        contenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Resultado:");
+        contenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, -1, -1));
 
-        TxtResultado.setBackground(new java.awt.Color(0, 153, 204));
-        TxtResultado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TxtResultado.setBackground(new java.awt.Color(0, 0, 102));
+        TxtResultado.setForeground(new java.awt.Color(255, 255, 255));
+        TxtResultado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         TxtResultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtResultadoActionPerformed(evt);
@@ -161,8 +179,9 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         });
         contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 250, 30));
 
-        TxtRestriccion4.setBackground(new java.awt.Color(0, 153, 204));
-        TxtRestriccion4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TxtRestriccion4.setBackground(new java.awt.Color(0, 0, 102));
+        TxtRestriccion4.setForeground(new java.awt.Color(255, 255, 255));
+        TxtRestriccion4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         contenedor.add(TxtRestriccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 337, 120, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -194,6 +213,10 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
     private void TxtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtResultadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtResultadoActionPerformed
+
+    private void TxtZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtZActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtZActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
