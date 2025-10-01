@@ -8,12 +8,12 @@ package com.umg.sources.vistas;
  *
  * @author keyor
  */
-public class VistaCostoMinimo extends javax.swing.JPanel {
+public class VistaEsquinsNoroeste extends javax.swing.JPanel {
 
     /**
-     * Creates new form VistaCostoMinimo
+     * Creates new form VistaEsquinsNoroeste
      */
-    public VistaCostoMinimo() {
+    public VistaEsquinsNoroeste() {
         initComponents();
     }
 
@@ -28,56 +28,55 @@ public class VistaCostoMinimo extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        Jtabla = new javax.swing.JPanel();
+        JTabla = new javax.swing.JPanel();
         BtnGenerar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         BtnLimpiar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         BtnMenu = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        TxtrRespuesta = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         TxtDatos = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        TxtRespuesta = new javax.swing.JTextField();
 
         setMinimumSize(new java.awt.Dimension(1000, 800));
         setPreferredSize(new java.awt.Dimension(1000, 800));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
-        jPanel1.setMinimumSize(new java.awt.Dimension(800, 1000));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 1000));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 800));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 800));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Metodo Costo Minimo");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 81, -1, -1));
+        jLabel1.setText("Metodo Esquina Noroeste");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
 
-        javax.swing.GroupLayout JtablaLayout = new javax.swing.GroupLayout(Jtabla);
-        Jtabla.setLayout(JtablaLayout);
-        JtablaLayout.setHorizontalGroup(
-            JtablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout JTablaLayout = new javax.swing.GroupLayout(JTabla);
+        JTabla.setLayout(JTablaLayout);
+        JTablaLayout.setHorizontalGroup(
+            JTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
-        JtablaLayout.setVerticalGroup(
-            JtablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        JTablaLayout.setVerticalGroup(
+            JTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Jtabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 550, 390));
+        jPanel1.add(JTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 580, 430));
 
         BtnGenerar.setBackground(new java.awt.Color(102, 102, 102));
         BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        BtnGenerar.setForeground(new java.awt.Color(255, 255, 255));
         BtnGenerar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Generar");
-        BtnGenerar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 8, -1, -1));
+        BtnGenerar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 16, -1, -1));
 
-        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 280, 130, 40));
+        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 250, 130, 50));
 
         BtnLimpiar.setBackground(new java.awt.Color(102, 102, 102));
         BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -86,85 +85,75 @@ public class VistaCostoMinimo extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Limpiar");
-        BtnLimpiar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 8, -1, -1));
+        BtnLimpiar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 17, -1, -1));
 
-        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 350, 130, 40));
+        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 330, 130, 50));
 
         BtnMenu.setBackground(new java.awt.Color(102, 102, 102));
+        BtnMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Munú");
-        BtnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 720, -1, -1));
+        jLabel4.setText("Menú");
+        BtnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 18, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Menú");
-        BtnMenu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
-
-        jPanel1.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 720, 110, 50));
+        jPanel1.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 720, 150, 50));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Respuesta");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, -1, -1));
-
-        TxtrRespuesta.setBackground(new java.awt.Color(0, 0, 102));
-        TxtrRespuesta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        TxtrRespuesta.setForeground(new java.awt.Color(255, 255, 255));
-        TxtrRespuesta.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        TxtrRespuesta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtrRespuestaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(TxtrRespuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 330, 40));
-
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Ingrese sus datos");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        jLabel5.setText("Ingrese los Datos");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
 
         TxtDatos.setBackground(new java.awt.Color(0, 0, 102));
         TxtDatos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         TxtDatos.setForeground(new java.awt.Color(255, 255, 255));
         TxtDatos.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel1.add(TxtDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 139, 340, 40));
+        jPanel1.add(TxtDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 149, 300, 30));
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Respuesta");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, -1, -1));
+
+        TxtRespuesta.setBackground(new java.awt.Color(0, 0, 102));
+        TxtRespuesta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        TxtRespuesta.setForeground(new java.awt.Color(255, 255, 255));
+        TxtRespuesta.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jPanel1.add(TxtRespuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 149, 320, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void TxtrRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtrRespuestaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtrRespuestaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel BtnGenerar;
     public javax.swing.JPanel BtnLimpiar;
     public javax.swing.JPanel BtnMenu;
-    public javax.swing.JPanel Jtabla;
+    public javax.swing.JPanel JTabla;
     public javax.swing.JTextField TxtDatos;
-    public javax.swing.JTextField TxtrRespuesta;
+    public javax.swing.JTextField TxtRespuesta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
