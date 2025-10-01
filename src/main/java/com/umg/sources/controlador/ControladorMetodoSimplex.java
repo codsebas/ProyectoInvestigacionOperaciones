@@ -1,12 +1,12 @@
 package com.umg.sources.controlador;
 
-import com.umg.sources.logica.LPSolver2D;
 import com.umg.sources.logica.LogicaSimplex;
-import com.umg.sources.logica.NaturalParser;
 import com.umg.sources.modelo.ModeloMetodoSimplex;
-import com.umg.sources.vistas.VistaMetodoSimplex;
+import com.umg.sources.vistas.VistaMetodoSimplex;   
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,138 +20,113 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
         this.modelo = modelo;
     }
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        // no-op (combo Max/Min)
+        if(e.getActionCommand().equals(modelo.getVista().CmbOpciones.getActionCommand())){
+
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        VistaMetodoSimplex v = modelo.getVista();
-        Object src = e.getComponent();
+        if (e.getComponent().equals(modelo.getVista().BtnGenerar)) {
+            boolean maximize = modelo.getVista().CmbOpciones.getSelectedItem().toString()
+                    .toLowerCase(Locale.ROOT).contains("max");
 
-        if (src == v.BtnMenu) {
-            System.out.println("Menu");
-            return;
-        }
-
-        if (src == v.BtnLimpiar) {
-            v.TxtZ.setText("");
-            v.TxtRestriccion1.setText("");
-            v.TxtRestriccion2.setText("");
-            v.TxtRestriccion3.setText("");
-            v.TxtRestriccion4.setText("");
-            v.TxtResultado.setText("");
-
-            // Limpia tabla y gráfica
-            v.mostrarIteraciones(new ArrayList<com.umg.sources.logica.LogicaSimplex.Iteration>());
-            v.dibujar(new double[][]{{1, 0}, {0, 1}}, new double[]{0, 0}, new char[]{'>', '>'}, null, null);
-            return;
-        }
-
-        if (src == v.BtnGenerar) {
-            try {
-                // 1) Objetivo (ej: "3x + 5y")
-                double[] c = NaturalParser.parseObjective(v.TxtZ.getText());
-                double c1 = c[0], c2 = c[1];
-
-                // 2) Restricciones (hasta 4)
-                List<LPSolver2D.Constraint> cons = new ArrayList<LPSolver2D.Constraint>();
-                String[] raws = new String[]{
-                        v.TxtRestriccion1.getText(),
-                        v.TxtRestriccion2.getText(),
-                        v.TxtRestriccion3.getText(),
-                        v.TxtRestriccion4.getText()
-                };
-
-                for (int i = 0; i < raws.length; i++) {
-                    String r = raws[i];
-                    if (r == null || r.trim().isEmpty()) continue;
-                    // Ojo: el tipo concreto devuelto por NaturalParser.parseConstraint debe existir.
-                    // En tu proyecto lo usas como 'p.a, p.b, p.c, p.type'.
-                    // Si el nombre es diferente, cámbialo aquí.
-                    NaturalParser.ParsedConstraint p = NaturalParser.parseConstraint(r);
-                    cons.add(new LPSolver2D.Constraint(p.a, p.b, p.c, p.type));
-                }
-
-                if (cons.isEmpty()) {
-                    JOptionPane.showMessageDialog(v, "Ingresa al menos una restricción.",
-                            "Faltan datos", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                // 3) Tipo: Max/Min
-                boolean maximize = true; // por defecto max
-                Object sel = v.CmbOpciones.getSelectedItem();
-                if (sel != null) {
-                    String s = sel.toString().toLowerCase(Locale.ROOT);
-                    maximize = s.contains("max");
-                }
-
-                // 4) Resolver con Simplex (Fase I + II)
-                LogicaSimplex.Result res = LogicaSimplex.solveFrom2D(cons, c1, c2, maximize);
-
-                // 5) Tabla de iteraciones
-                v.mostrarIteraciones(res.steps);
-
-                // 6) Resultado
-                if (!res.feasible) {
-                    v.TxtResultado.setText("Infactible");
-                } else if (res.unbounded) {
-                    v.TxtResultado.setText("No acotado");
-                } else {
-                    double x1 = (res.x != null && res.x.length > 0) ? res.x[0] : 0.0;
-                    double x2 = (res.x != null && res.x.length > 1) ? res.x[1] : 0.0;
-                    v.TxtResultado.setText(String.format(Locale.US,
-                            "Óptimo: Z=%.4f en (x=%.4f, y=%.4f)", res.z, x1, x2));
-                }
-
-                // 7) Graficar (2D)
-                int m = cons.size();
-                double[][] A = new double[m][2];
-                double[] b = new double[m];
-                char[] signs = new char[m];
-
-                for (int i = 0; i < m; i++) {
-                    LPSolver2D.Constraint ci = cons.get(i);
-                    A[i][0] = ci.a;
-                    A[i][1] = ci.b;
-                    b[i] = ci.c;
-
-                    char sign;
-                    switch (ci.type) {
-                        case LE:
-                            sign = '<';
-                            break;
-                        case GE:
-                            sign = '>';
-                            break;
-                        case EQ:
-                        default:
-                            sign = '=';
-                            break;
-                    }
-                    signs[i] = sign;
-                }
-
-                double[] cObj = (!res.feasible || res.unbounded) ? null : new double[]{c1, c2};
-                double[] xopt = (res.feasible && !res.unbounded) ? res.x : null;
-                v.dibujar(A, b, signs, cObj, xopt);
-
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(v,
-                        "Objetivo inválido. Escribe, ej.:  3x + 5y",
-                        "Error de entrada", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(v, "Error inesperado: " + ex.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+            if (!validarBlancos()) {
+                mensajeBlancos();
+                return;
             }
+
+            String objetivo = modelo.getVista().TxtZ.getText().trim();
+            List<String> restricciones = new ArrayList<>();
+            restricciones.add(modelo.getVista().TxtRestriccion1.getText());
+            restricciones.add(modelo.getVista().TxtRestriccion2.getText());
+            restricciones.add(modelo.getVista().TxtRestriccion3.getText());
+            restricciones.add(modelo.getVista().TxtRestriccion4.getText());
+            restricciones.add(modelo.getVista().TxtRestriccion5.getText());
+
+            LogicaSimplex.Resultado res = new LogicaSimplex().calcularSimplex(maximize, objetivo, restricciones);
+
+            JTabbedPane tabs = new JTabbedPane();
+            for (int i = 0; i < res.history.size(); i++) {
+                JTable t = new JTable(res.history.get(i));
+                ajustarTamañoTabla(t);
+                String titulo = (i == 0) ? "Inicial" : "Iteración " + i;
+                tabs.addTab(titulo, new JScrollPane(t));
+            }
+
+            modelo.getVista().PanelTabla.removeAll();
+            modelo.getVista().PanelTabla.setLayout(new BorderLayout());
+            modelo.getVista().PanelTabla.add(tabs, BorderLayout.CENTER);
+            modelo.getVista().PanelTabla.revalidate();
+            modelo.getVista().PanelTabla.repaint();
+
+            modelo.getVista().TxtResultado.setText(
+                    String.format("z=%.6f, x=%.6f, y=%.6f", res.z, res.x, res.y)
+            );
+
+        } else if (e.getComponent().equals(modelo.getVista().BtnLimpiar)) {
+            limpiar();
+        } else if (e.getComponent().equals(modelo.getVista().BtnMenu)) {
+            // navegación...
         }
     }
+
 
     @Override public void mousePressed(MouseEvent e) { }
     @Override public void mouseReleased(MouseEvent e) { }
     @Override public void mouseEntered(MouseEvent e) { }
     @Override public void mouseExited(MouseEvent e) { }
+
+    private void limpiar(){
+        modelo.getVista().CmbOpciones.setSelectedIndex(0);
+        modelo.getVista().TxtZ.setText("");
+        modelo.getVista().TxtRestriccion1.setText("");
+        modelo.getVista().TxtRestriccion3.setText("");
+        modelo.getVista().TxtRestriccion2.setText("");
+        modelo.getVista().TxtRestriccion4.setText("");
+        modelo.getVista().TxtRestriccion5.setText("");
+        modelo.getVista().TxtResultado.setText("");
+        modelo.getVista().PanelTabla.removeAll();
+        modelo.getVista().PanelTabla.revalidate();
+        modelo.getVista().PanelTabla.repaint();
+    }
+
+    private void ajustarTamañoTabla(JTable tabla) {
+        int rowHeight = tabla.getRowHeight();
+        int rowCount = tabla.getRowCount();
+        int headerHeight = tabla.getTableHeader().getPreferredSize().height;
+
+        int alturaTotal = (rowHeight * rowCount) + headerHeight;
+        tabla.setPreferredScrollableViewportSize(new Dimension(tabla.getPreferredSize().width, alturaTotal));
+    }
+
+    private boolean validarBlancos(){
+        boolean ok =
+        !modelo.getVista().TxtZ.getText().trim().isEmpty() &&
+            (!modelo.getVista().TxtRestriccion1.getText().trim().isEmpty() ||
+                !modelo.getVista().TxtRestriccion2.getText().trim().isEmpty() ||
+                !modelo.getVista().TxtRestriccion3.getText().trim().isEmpty() ||
+                !modelo.getVista().TxtRestriccion4.getText().trim().isEmpty() ||
+                !modelo.getVista().TxtRestriccion5.getText().trim().isEmpty()
+            );
+        return ok;
+    }
+
+    private void mensajeBlancos(){
+        JOptionPane.showMessageDialog(
+                modelo.getVista(),
+                "Uno o más campos están en blanco.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+        if(modelo.getVista().TxtZ.getText().trim().isEmpty()){
+            modelo.getVista().TxtZ.requestFocus();
+        } else {
+            modelo.getVista().TxtRestriccion1.requestFocus();
+        }
+    }
 }
