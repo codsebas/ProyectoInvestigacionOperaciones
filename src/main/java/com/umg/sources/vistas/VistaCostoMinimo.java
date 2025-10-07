@@ -77,7 +77,7 @@ public class VistaCostoMinimo extends javax.swing.JPanel {
         jLabel2.setText("Generar");
         BtnGenerar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 8, -1, -1));
 
-        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 280, 130, 40));
+        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 270, 130, 40));
 
         BtnLimpiar.setBackground(new java.awt.Color(102, 102, 102));
         BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
