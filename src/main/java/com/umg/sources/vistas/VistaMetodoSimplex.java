@@ -4,18 +4,22 @@
  */
 package com.umg.sources.vistas;
 
+import com.umg.sources.controlador.ControladorMetodoSimplex;
+
+
 /**
  *
  * @author keyor
  */
 public class VistaMetodoSimplex extends javax.swing.JPanel {
-
-    /**
-     * Creates new form VistaMetodoSimplex
-     */
+    
     public VistaMetodoSimplex() {
         initComponents();
+        ControladorMetodoSimplex controlador = new ControladorMetodoSimplex(new com.umg.sources.modelo.ModeloMetodoSimplex(this));
+        setControlador(controlador);
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,9 +40,10 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
         TxtResultado = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         TxtRestriccion1 = new javax.swing.JTextField();
+        TxtRestriccion3 = new javax.swing.JTextField();
         TxtRestriccion2 = new javax.swing.JTextField();
-        TxtRestricciion2 = new javax.swing.JTextField();
         TxtRestriccion4 = new javax.swing.JTextField();
+        TxtRestriccion5 = new javax.swing.JTextField();
         BtnGenerar = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         BtnLimpiar = new javax.swing.JPanel();
@@ -69,7 +74,7 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        contenedor.add(PanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 390, 220));
+        contenedor.add(PanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 390, 360));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -96,10 +101,9 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
         jLabel3.setText("Resultado");
         contenedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
 
-        TxtResultado.setBackground(new java.awt.Color(0, 0, 102));
-        TxtResultado.setForeground(new java.awt.Color(255, 255, 255));
-        TxtResultado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 117, 170, 30));
+        TxtResultado.setBackground(new java.awt.Color(0, 153, 204));
+        TxtResultado.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 117, 320, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -116,30 +120,31 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
         });
         contenedor.add(TxtRestriccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 227, 140, 30));
 
-        TxtRestriccion2.setBackground(new java.awt.Color(0, 0, 102));
-        TxtRestriccion2.setForeground(new java.awt.Color(255, 255, 255));
-        TxtRestriccion2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        TxtRestriccion3.setBackground(new java.awt.Color(0, 153, 204));
+        TxtRestriccion3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        TxtRestriccion3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtRestriccion3ActionPerformed(evt);
+            }
+        });
+        contenedor.add(TxtRestriccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 140, 30));
+
+        TxtRestriccion2.setBackground(new java.awt.Color(0, 153, 204));
+        TxtRestriccion2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         TxtRestriccion2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtRestriccion2ActionPerformed(evt);
             }
         });
-        contenedor.add(TxtRestriccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 140, 30));
+        contenedor.add(TxtRestriccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 140, 30));
 
-        TxtRestricciion2.setBackground(new java.awt.Color(0, 0, 102));
-        TxtRestricciion2.setForeground(new java.awt.Color(255, 255, 255));
-        TxtRestricciion2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        TxtRestricciion2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtRestricciion2ActionPerformed(evt);
-            }
-        });
-        contenedor.add(TxtRestricciion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 140, 30));
+        TxtRestriccion4.setBackground(new java.awt.Color(0, 153, 204));
+        TxtRestriccion4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        contenedor.add(TxtRestriccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 140, 30));
 
-        TxtRestriccion4.setBackground(new java.awt.Color(0, 0, 102));
-        TxtRestriccion4.setForeground(new java.awt.Color(255, 255, 255));
-        TxtRestriccion4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        contenedor.add(TxtRestriccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 337, 140, 30));
+        TxtRestriccion5.setBackground(new java.awt.Color(0, 153, 204));
+        TxtRestriccion5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        contenedor.add(TxtRestriccion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 337, 140, 30));
 
         BtnGenerar.setBackground(new java.awt.Color(102, 102, 102));
         BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -186,13 +191,20 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setControlador(ControladorMetodoSimplex c){
+        BtnGenerar.addMouseListener(c);
+        BtnLimpiar.addMouseListener(c);
+        BtnMenu.addMouseListener(c);
+        CmbOpciones.addActionListener(c);
+    }
+
+    private void TxtRestriccion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRestriccion3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtRestriccion3ActionPerformed
+
     private void TxtRestriccion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRestriccion2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtRestriccion2ActionPerformed
-
-    private void TxtRestricciion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRestricciion2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtRestricciion2ActionPerformed
 
     private void CmbOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CmbOpcionesActionPerformed
         // TODO add your handling code here:
@@ -206,13 +218,14 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel BtnGenerar;
     public javax.swing.JPanel BtnLimpiar;
-    private javax.swing.JPanel BtnMenu;
+    public javax.swing.JPanel BtnMenu;
     public javax.swing.JComboBox<String> CmbOpciones;
     public javax.swing.JPanel PanelTabla;
-    public javax.swing.JTextField TxtRestricciion2;
     public javax.swing.JTextField TxtRestriccion1;
     public javax.swing.JTextField TxtRestriccion2;
+    public javax.swing.JTextField TxtRestriccion3;
     public javax.swing.JTextField TxtRestriccion4;
+    public javax.swing.JTextField TxtRestriccion5;
     public javax.swing.JTextField TxtResultado;
     public javax.swing.JTextField TxtZ;
     public javax.swing.JPanel contenedor;
