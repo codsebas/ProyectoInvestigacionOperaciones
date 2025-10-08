@@ -3,18 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.umg.sources.vistas;
-
+import com.umg.sources.modelo.ModeloEsquinaNoroeste;
+import com.umg.sources.controlador.ControladorEsquinaNoroeste;
 /**
  *
  * @author keyor
  */
-public class VistaEsquinsNoroeste extends javax.swing.JPanel {
+public class VistaEsquinaNoroeste extends javax.swing.JPanel {
 
     /**
      * Creates new form VistaEsquinsNoroeste
      */
-    public VistaEsquinsNoroeste() {
+    public VistaEsquinaNoroeste() {
         initComponents();
+        ModeloEsquinaNoroeste modelo = new ModeloEsquinaNoroeste(this);
+        ControladorEsquinaNoroeste controlador = new ControladorEsquinaNoroeste(modelo);
+        setControlador(controlador);
     }
 
     /**
@@ -29,14 +33,10 @@ public class VistaEsquinsNoroeste extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         JTabla = new javax.swing.JPanel();
-        BtnGenerar = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        BtnLimpiar = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblContenidos = new javax.swing.JTable();
         BtnMenu = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        TxtDatos = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         TxtRespuesta = new javax.swing.JTextField();
 
@@ -52,42 +52,30 @@ public class VistaEsquinsNoroeste extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Metodo Esquina Noroeste");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, -1));
+
+        tblContenidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblContenidos);
 
         javax.swing.GroupLayout JTablaLayout = new javax.swing.GroupLayout(JTabla);
         JTabla.setLayout(JTablaLayout);
         JTablaLayout.setHorizontalGroup(
             JTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
         );
         JTablaLayout.setVerticalGroup(
             JTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
         );
 
         jPanel1.add(JTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 580, 430));
-
-        BtnGenerar.setBackground(new java.awt.Color(102, 102, 102));
-        BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        BtnGenerar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Generar");
-        BtnGenerar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 16, -1, -1));
-
-        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 250, 130, 50));
-
-        BtnLimpiar.setBackground(new java.awt.Color(102, 102, 102));
-        BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        BtnLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Limpiar");
-        BtnLimpiar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 17, -1, -1));
-
-        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 330, 130, 50));
 
         BtnMenu.setBackground(new java.awt.Color(102, 102, 102));
         BtnMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -98,29 +86,18 @@ public class VistaEsquinsNoroeste extends javax.swing.JPanel {
         jLabel4.setText("Menú");
         BtnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 18, -1, -1));
 
-        jPanel1.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 720, 150, 50));
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Ingrese los Datos");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
-
-        TxtDatos.setBackground(new java.awt.Color(0, 0, 102));
-        TxtDatos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        TxtDatos.setForeground(new java.awt.Color(255, 255, 255));
-        TxtDatos.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel1.add(TxtDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 149, 300, 30));
+        jPanel1.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 260, 150, 50));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Respuesta");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
 
         TxtRespuesta.setBackground(new java.awt.Color(0, 0, 102));
         TxtRespuesta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         TxtRespuesta.setForeground(new java.awt.Color(255, 255, 255));
         TxtRespuesta.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel1.add(TxtRespuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 149, 320, 30));
+        jPanel1.add(TxtRespuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 570, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -140,20 +117,18 @@ public class VistaEsquinsNoroeste extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setControlador(ControladorEsquinaNoroeste controlador){
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JPanel BtnGenerar;
-    public javax.swing.JPanel BtnLimpiar;
     public javax.swing.JPanel BtnMenu;
     public javax.swing.JPanel JTabla;
-    public javax.swing.JTextField TxtDatos;
     public javax.swing.JTextField TxtRespuesta;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable tblContenidos;
     // End of variables declaration//GEN-END:variables
 }

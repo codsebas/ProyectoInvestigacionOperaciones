@@ -26,6 +26,10 @@ public class VistaMenu extends javax.swing.JPanel {
     public JPanel getBtnMetSimplex(){
         return BtnMetSimplex;
     }
+    
+    public JPanel getBtnMetTransportes(){
+        return BtnMetTransportes;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,12 +46,8 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         BtnMetSimplex = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        BtnMetTransportes = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
 
         contenedor.setBackground(new java.awt.Color(0, 0, 102));
         contenedor.setPreferredSize(new java.awt.Dimension(700, 400));
@@ -83,39 +83,17 @@ public class VistaMenu extends javax.swing.JPanel {
 
         contenedor.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 170, 40));
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.setPreferredSize(new java.awt.Dimension(140, 45));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        BtnMetTransportes.setBackground(new java.awt.Color(102, 102, 102));
+        BtnMetTransportes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BtnMetTransportes.setPreferredSize(new java.awt.Dimension(140, 45));
+        BtnMetTransportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Metodo Costo Minimo");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 10, -1, -1));
+        jLabel4.setText("Metodos de transporte");
+        BtnMetTransportes.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        contenedor.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 170, 40));
-
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Metodo Esquina Noroeste");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        contenedor.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 170, 40));
-
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Metodo Vogel");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 8, -1, -1));
-
-        contenedor.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 170, 40));
+        contenedor.add(BtnMetTransportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 170, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,15 +116,11 @@ public class VistaMenu extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel BtnMetGrafico;
     public javax.swing.JPanel BtnMetSimplex;
+    public javax.swing.JPanel BtnMetTransportes;
     public javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

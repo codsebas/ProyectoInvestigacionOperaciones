@@ -28,6 +28,8 @@ public class ControladorMenu implements ActionListener, MouseListener{
         
         vista.getBtnMetGrafico().addMouseListener(this);
         vista.getBtnMetSimplex().addMouseListener(this);
+        vista.getBtnMetTransportes().addMouseListener(this);
+        
     }
     
     private void cambiarVista(JPanel panel) {
@@ -51,6 +53,9 @@ public class ControladorMenu implements ActionListener, MouseListener{
             vistaPrincipal.cambiarPanel(panel);
         } else if(e.getComponent().equals(vista.BtnMetSimplex)){
             VistaMetodoSimplex panel = new VistaMetodoSimplex();
+            vistaPrincipal.cambiarPanel(panel);
+        } else if(e.getComponent().equals(vista.BtnMetTransportes)){
+            VistaMetodosTransporte panel = new VistaMetodosTransporte();
             vistaPrincipal.cambiarPanel(panel);
         }
         
