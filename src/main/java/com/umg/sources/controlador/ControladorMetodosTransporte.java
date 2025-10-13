@@ -78,7 +78,7 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
                         res = MetodoEsquinaNoroeste.resolver(p);
                         break;
                     case "Vogel":
-                        res =MetodoVogel.resolver(p);
+                        modelo.getVista().txtResultado.setText(sel);
                         break;
                 }
                 modelo.getVista().txtResultado.setText("Resultado: " + res);
