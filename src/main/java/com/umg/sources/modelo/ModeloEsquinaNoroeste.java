@@ -26,5 +26,7 @@ public class ModeloEsquinaNoroeste {
         this.vista = vista;
     }
     
+     
+    
     
 }

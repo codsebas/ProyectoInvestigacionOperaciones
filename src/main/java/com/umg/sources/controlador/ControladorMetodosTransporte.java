@@ -6,6 +6,10 @@ package com.umg.sources.controlador;
 
 import com.umg.sources.modelo.ModeloMetodosTransporte;
 import com.umg.sources.logica.MetodoEsquinaNoroeste;
+import com.umg.sources.logica.MetodoCostoMinimo;
+
+
+
 import com.umg.sources.modelo.ProblemaTransporte;
 
 import java.awt.event.ActionEvent;
@@ -15,6 +19,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
@@ -65,18 +70,19 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
                 String sel = (String) modelo.getVista().CBBMetodos.getSelectedItem();
                 ProblemaTransporte p = getProblemaFromUI();
                 String res = "";
-                switch (sel) {
+                  switch (sel) {
                     case "Costo Minimo":
-                        modelo.getVista().txtResultado.setText(sel);
+                       res = MetodoCostoMinimo.resolver(p);
                         break;
                     case "Esquina Noroeste":
                         res = MetodoEsquinaNoroeste.resolver(p);
                         break;
                     case "Vogel":
-                        modelo.getVista().txtResultado.setText(sel);
+                        res =MetodoVogel.resolver(p);
                         break;
                 }
                 modelo.getVista().txtResultado.setText("Resultado: " + res);
+               
                 
             } else {
 
@@ -317,5 +323,5 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
 
         return new ProblemaTransporte(costos, oferta, demanda, filas, columnas);
     }
-
+    
 }
