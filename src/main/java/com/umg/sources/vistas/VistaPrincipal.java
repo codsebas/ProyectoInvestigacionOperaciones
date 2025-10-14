@@ -47,7 +47,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
         contenedor.setMaximumSize(new java.awt.Dimension(800, 500));
         contenedor.setMinimumSize(new java.awt.Dimension(800, 500));
