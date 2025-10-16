@@ -30,7 +30,11 @@ public class VistaMenu extends javax.swing.JPanel {
     public JPanel getBtnMetTransportes(){
         return BtnMetTransportes;
     }
-
+    
+    public JPanel getBtnModAsig(){
+        return BtnModAsig;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,14 +44,28 @@ public class VistaMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BtnMetTransportes1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         contenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         BtnMetGrafico = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         BtnMetSimplex = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        BtnMetTransportes = new javax.swing.JPanel();
+        BtnModAsig = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        BtnMetTransportes = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+
+        BtnMetTransportes1.setBackground(new java.awt.Color(102, 102, 102));
+        BtnMetTransportes1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BtnMetTransportes1.setPreferredSize(new java.awt.Dimension(140, 45));
+        BtnMetTransportes1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Metodos de transporte");
+        BtnMetTransportes1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         contenedor.setBackground(new java.awt.Color(0, 0, 102));
         contenedor.setPreferredSize(new java.awt.Dimension(700, 400));
@@ -83,15 +101,27 @@ public class VistaMenu extends javax.swing.JPanel {
 
         contenedor.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 170, 40));
 
+        BtnModAsig.setBackground(new java.awt.Color(102, 102, 102));
+        BtnModAsig.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BtnModAsig.setPreferredSize(new java.awt.Dimension(140, 45));
+        BtnModAsig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Modelo Asignacion");
+        BtnModAsig.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        contenedor.add(BtnModAsig, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 170, 40));
+
         BtnMetTransportes.setBackground(new java.awt.Color(102, 102, 102));
         BtnMetTransportes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnMetTransportes.setPreferredSize(new java.awt.Dimension(140, 45));
         BtnMetTransportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Metodos de transporte");
-        BtnMetTransportes.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Metodos de transporte");
+        BtnMetTransportes.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         contenedor.add(BtnMetTransportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 170, 40));
 
@@ -117,10 +147,14 @@ public class VistaMenu extends javax.swing.JPanel {
     public javax.swing.JPanel BtnMetGrafico;
     public javax.swing.JPanel BtnMetSimplex;
     public javax.swing.JPanel BtnMetTransportes;
+    public javax.swing.JPanel BtnMetTransportes1;
+    public javax.swing.JPanel BtnModAsig;
     public javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }
