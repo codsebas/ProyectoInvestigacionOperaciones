@@ -4,6 +4,7 @@
  */
 package com.umg.sources.controlador;
 
+import com.umg.sources.logica.MetodoVogel;
 import com.umg.sources.modelo.ModeloMetodosTransporte;
 import com.umg.sources.logica.MetodoEsquinaNoroeste;
 import com.umg.sources.logica.MetodoCostoMinimo;
@@ -78,8 +79,7 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
                         res = MetodoEsquinaNoroeste.resolver(p);
                         break;
                     case "Vogel":
-                        modelo.getVista().txtResultado.setText(sel);
-                        break;
+                        res = MetodoVogel.resolver(p);
                 }
                 modelo.getVista().txtResultado.setText("Resultado: " + res);
                
@@ -205,83 +205,112 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
         int cols = tbl.getColumnCount();
 
         if (rows < 2 || cols < 3) {
-            JOptionPane.showMessageDialog(modelo.getVista(),
-                    "Define al menos 1 oferta, 1 demanda y costos.", "Datos insuficientes",
-                    JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    "Define al menos 1 oferta, 1 demanda y costos.",
+                    "Datos insuficientes",
+                    JOptionPane.WARNING_MESSAGE
+            );
             return false;
         }
 
-        int ultimaFila = rows - 1;     // fila "Demanda"
-        int colOferta = cols - 1;     // última columna "Oferta"
+        final int ultimaFila = rows - 1;   // fila "Demanda"
+        final int colOferta  = cols - 1;   // última columna "Oferta"
 
-        // 1) Validar costos (todas las celdas internas, excepto fila Demanda y col Oferta)
-        for (int r = 0; r < ultimaFila; r++) { // filas de oferta
+        // 1) Validar COSTOS (filas 0..ultimaFila-1, columnas 1..colOferta-1)
+        for (int r = 0; r < ultimaFila; r++) {
             for (int c = 1; c < colOferta; c++) {
                 Object v = tbl.getValueAt(r, c);
                 if (!esNumero(v)) {
-                    JOptionPane.showMessageDialog(modelo.getVista(),
+                    JOptionPane.showMessageDialog(
+                            modelo.getVista(),
                             String.format("Costo inválido en fila %d, columna %d.", r + 1, c + 1),
-                            "Dato inválido", JOptionPane.ERROR_MESSAGE);
+                            "Dato inválido",
+                            JOptionPane.ERROR_MESSAGE
+                    );
                     return false;
                 }
                 if (Double.parseDouble(v.toString()) < 0) {
-                    JOptionPane.showMessageDialog(modelo.getVista(),
-                            "Los costos deben ser >= 0.", "Dato inválido", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(
+                            modelo.getVista(),
+                            "Los costos deben ser >= 0.",
+                            "Dato inválido",
+                            JOptionPane.ERROR_MESSAGE
+                    );
                     return false;
                 }
             }
         }
 
-        // 2) Validar OFERTAS (columna final, exceptuando fila Demanda)
+        // 2) Validar OFERTAS (columna final, excepto fila Demanda)
         double sumaOferta = 0.0;
         for (int r = 0; r < ultimaFila; r++) {
             Object v = tbl.getValueAt(r, colOferta);
             if (!esNumero(v)) {
-                JOptionPane.showMessageDialog(modelo.getVista(),
+                JOptionPane.showMessageDialog(
+                        modelo.getVista(),
                         String.format("Oferta inválida en la fila %d.", r + 1),
-                        "Dato inválido", JOptionPane.ERROR_MESSAGE);
+                        "Dato inválido",
+                        JOptionPane.ERROR_MESSAGE
+                );
                 return false;
             }
             double val = Double.parseDouble(v.toString());
             if (val < 0) {
-                JOptionPane.showMessageDialog(modelo.getVista(),
-                        "Las ofertas deben ser >= 0.", "Dato inválido", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                        modelo.getVista(),
+                        "Las ofertas deben ser >= 0.",
+                        "Dato inválido",
+                        JOptionPane.ERROR_MESSAGE
+                );
                 return false;
             }
             sumaOferta += val;
         }
 
-        // 3) Validar DEMANDAS (fila final "Demanda", columnas 1..colOferta-1)
+        // 3) Validar DEMANDAS (fila "Demanda", columnas 1..colOferta-1)
         double sumaDemanda = 0.0;
         for (int c = 1; c < colOferta; c++) {
             Object v = tbl.getValueAt(ultimaFila, c);
             if (!esNumero(v)) {
-                JOptionPane.showMessageDialog(modelo.getVista(),
+                JOptionPane.showMessageDialog(
+                        modelo.getVista(),
                         String.format("Demanda inválida en la columna %d.", c + 1),
-                        "Dato inválido", JOptionPane.ERROR_MESSAGE);
+                        "Dato inválido",
+                        JOptionPane.ERROR_MESSAGE
+                );
                 return false;
             }
             double val = Double.parseDouble(v.toString());
             if (val < 0) {
-                JOptionPane.showMessageDialog(modelo.getVista(),
-                        "Las demandas deben ser >= 0.", "Dato inválido", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                        modelo.getVista(),
+                        "Las demandas deben ser >= 0.",
+                        "Dato inválido",
+                        JOptionPane.ERROR_MESSAGE
+                );
                 return false;
             }
             sumaDemanda += val;
         }
 
-        // 4) Chequear balance
-        double EPS = 1e-6;
+        // 4) Balance: SOLO informar; NO bloquear (los métodos se auto-balancean)
+        final double EPS = 1e-6;
         if (Math.abs(sumaOferta - sumaDemanda) > EPS) {
-            JOptionPane.showMessageDialog(modelo.getVista(),
-                    String.format("Problema desbalanceado: Oferta = %.4f, Demanda = %.4f",
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    String.format(
+                            "Problema desbalanceado: Oferta = %.4f, Demanda = %.4f.\n" +
+                                    "Se añadirá una fila/columna Dummy (costo 0) automáticamente.",
                             sumaOferta, sumaDemanda),
-                    "Desbalance", JOptionPane.ERROR_MESSAGE);
-            return false;
+                    "Aviso",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
         }
 
-        return true;
+        return true; // siempre dejar pasar si lo anterior es válido
     }
+
 
     /**
      * Extrae costos, oferta y demanda desde la JTable respetando tu layout.

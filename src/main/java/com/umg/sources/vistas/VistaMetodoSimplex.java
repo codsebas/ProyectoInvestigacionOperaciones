@@ -82,6 +82,7 @@ public class VistaMetodoSimplex extends javax.swing.JPanel {
         contenedor.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, 20));
 
         TxtZ.setBackground(new java.awt.Color(0, 0, 102));
+        TxtZ.setForeground(new java.awt.Color(255, 255, 255));
         TxtZ.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         contenedor.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 150, 40));
 

@@ -102,7 +102,7 @@ public class VistaMetodosTransporte extends javax.swing.JPanel {
         CBBMetodos.setBackground(new java.awt.Color(0, 0, 102));
         CBBMetodos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         CBBMetodos.setForeground(new java.awt.Color(255, 255, 255));
-        CBBMetodos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Costo Minimo", "Esquina Noroeste", "Voguel" }));
+        CBBMetodos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Costo Minimo", "Esquina Noroeste", "Vogel" }));
         jPanel1.add(CBBMetodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 180, 30));
 
         BtnGenTabla.setBackground(new java.awt.Color(102, 102, 102));
