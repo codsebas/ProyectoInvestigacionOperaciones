@@ -68,13 +68,14 @@ public class VistaMenu extends javax.swing.JPanel {
         BtnMetTransportes1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         contenedor.setBackground(new java.awt.Color(0, 0, 102));
-        contenedor.setPreferredSize(new java.awt.Dimension(700, 400));
+        contenedor.setMinimumSize(new java.awt.Dimension(1200, 800));
+        contenedor.setPreferredSize(new java.awt.Dimension(1200, 800));
         contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Investigacion de Operaciones");
-        contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+        contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, -1, -1));
 
         BtnMetGrafico.setBackground(new java.awt.Color(102, 102, 102));
         BtnMetGrafico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -87,7 +88,7 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel2.setText("Metodo Grafico");
         BtnMetGrafico.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 16));
 
-        contenedor.add(BtnMetGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 170, 40));
+        contenedor.add(BtnMetGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 170, 40));
 
         BtnMetSimplex.setBackground(new java.awt.Color(102, 102, 102));
         BtnMetSimplex.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -99,7 +100,7 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel3.setText("Metodo Simplex");
         BtnMetSimplex.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 8, -1, -1));
 
-        contenedor.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 170, 40));
+        contenedor.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 170, 40));
 
         BtnModAsig.setBackground(new java.awt.Color(102, 102, 102));
         BtnModAsig.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -111,7 +112,7 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel4.setText("Modelo Asignacion");
         BtnModAsig.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        contenedor.add(BtnModAsig, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 170, 40));
+        contenedor.add(BtnModAsig, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 380, 170, 40));
 
         BtnMetTransportes.setBackground(new java.awt.Color(102, 102, 102));
         BtnMetTransportes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -123,22 +124,19 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel6.setText("Metodos de transporte");
         BtnMetTransportes.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        contenedor.add(BtnMetTransportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 170, 40));
+        contenedor.add(BtnMetTransportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 170, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

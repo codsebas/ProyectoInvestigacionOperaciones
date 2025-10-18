@@ -73,13 +73,14 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         TxtRestriccion4 = new javax.swing.JTextField();
 
         contenedor.setBackground(new java.awt.Color(0, 0, 102));
-        contenedor.setPreferredSize(new java.awt.Dimension(800, 500));
+        contenedor.setMinimumSize(new java.awt.Dimension(1200, 800));
+        contenedor.setPreferredSize(new java.awt.Dimension(1200, 800));
         contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Metodo Grafico");
-        contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
+        contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, -1));
 
         javax.swing.GroupLayout PanelGraficaLayout = new javax.swing.GroupLayout(PanelGrafica);
         PanelGrafica.setLayout(PanelGraficaLayout);
@@ -92,9 +93,9 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        contenedor.add(PanelGrafica, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 390, 230));
+        contenedor.add(PanelGrafica, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 710, 370));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Z:");
         contenedor.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 20, -1));
@@ -107,18 +108,18 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
                 TxtZActionPerformed(evt);
             }
         });
-        contenedor.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 140, -1));
+        contenedor.add(TxtZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 107, 300, 30));
 
         CmbOpciones.setBackground(new java.awt.Color(0, 0, 102));
-        CmbOpciones.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        CmbOpciones.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         CmbOpciones.setForeground(new java.awt.Color(255, 255, 255));
         CmbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minimizacion", "Maximizacion" }));
-        contenedor.add(CmbOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
+        contenedor.add(CmbOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Restricciones");
-        contenedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
+        contenedor.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
 
         TxtRestriccion1.setBackground(new java.awt.Color(0, 0, 102));
         TxtRestriccion1.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,7 +160,7 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         jLabel4.setText("Menu");
         BtnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        contenedor.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 120, 40));
+        contenedor.add(BtnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, 120, 40));
 
         BtnGenerar.setBackground(new java.awt.Color(102, 102, 102));
         BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -170,7 +171,7 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         jLabel5.setText("Generar");
         BtnGenerar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 8, -1, -1));
 
-        contenedor.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, 120, 40));
+        contenedor.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, 120, 40));
 
         BtnLimpiar.setBackground(new java.awt.Color(102, 102, 102));
         BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -181,12 +182,12 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
         jLabel6.setText("Limpiar");
         BtnLimpiar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 6, -1, -1));
 
-        contenedor.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, 120, 40));
+        contenedor.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 290, 120, 40));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Resultado:");
-        contenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, -1, -1));
+        contenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, -1, -1));
 
         TxtResultado.setBackground(new java.awt.Color(0, 0, 102));
         TxtResultado.setForeground(new java.awt.Color(255, 255, 255));
@@ -196,7 +197,7 @@ public class VistaMetodoGrafico extends javax.swing.JPanel {
                 TxtResultadoActionPerformed(evt);
             }
         });
-        contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 250, 30));
+        contenedor.add(TxtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, 250, 30));
 
         TxtRestriccion4.setBackground(new java.awt.Color(0, 0, 102));
         TxtRestriccion4.setForeground(new java.awt.Color(255, 255, 255));

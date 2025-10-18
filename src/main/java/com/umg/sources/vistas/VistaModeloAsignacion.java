@@ -57,8 +57,8 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(1000, 800));
-        setPreferredSize(new java.awt.Dimension(1000, 800));
+        setMinimumSize(new java.awt.Dimension(1200, 1000));
+        setPreferredSize(new java.awt.Dimension(1200, 1000));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
         jPanel1.setMinimumSize(new java.awt.Dimension(1000, 800));
@@ -73,19 +73,19 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ingrese Numero de Filas");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
         txtResultado.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         txtResultado.setForeground(new java.awt.Color(255, 255, 255));
         txtResultado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtResultado.setText("Resultado:");
-        jPanel1.add(txtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 520, -1));
+        jPanel1.add(txtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 520, -1));
 
         TxtFilas.setBackground(new java.awt.Color(0, 0, 102));
         TxtFilas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         TxtFilas.setForeground(new java.awt.Color(255, 255, 255));
         TxtFilas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel1.add(TxtFilas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 160, 40));
+        jPanel1.add(TxtFilas, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 230, 40));
 
         TxtColumnas.setBackground(new java.awt.Color(0, 0, 102));
         TxtColumnas.setForeground(new java.awt.Color(255, 255, 255));
@@ -95,7 +95,7 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
                 TxtColumnasActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtColumnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 160, 40));
+        jPanel1.add(TxtColumnas, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 230, 40));
 
         BtnGenTabla.setBackground(new java.awt.Color(102, 102, 102));
         BtnGenTabla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -106,7 +106,7 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
         jLabel4.setText("Generar Tabla");
         BtnGenTabla.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jPanel1.add(BtnGenTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 140, 40));
+        jPanel1.add(BtnGenTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 140, 40));
 
         BtnLimpiar.setBackground(new java.awt.Color(102, 102, 102));
         BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -117,7 +117,7 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
         jLabel5.setText("Limpiar");
         BtnLimpiar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 8, -1, -1));
 
-        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 180, 140, 40));
+        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 180, 140, 40));
 
         BtnRegresar.setBackground(new java.awt.Color(102, 102, 102));
         BtnRegresar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -128,7 +128,7 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
         jLabel6.setText("Regresar");
         BtnRegresar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 8, -1, -1));
 
-        jPanel1.add(BtnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 240, 140, 40));
+        jPanel1.add(BtnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 250, 140, 40));
 
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -144,19 +144,19 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
         PanelTabla.setLayout(PanelTablaLayout);
         PanelTablaLayout.setHorizontalGroup(
             PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
         PanelTablaLayout.setVerticalGroup(
             PanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
 
-        jPanel1.add(PanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 630, 390));
+        jPanel1.add(PanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 720, 390));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Ingrese Numero de Columnas");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         BtnGenerar.setBackground(new java.awt.Color(102, 102, 102));
         BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -167,12 +167,12 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
         jLabel8.setText("Calcular");
         BtnGenerar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 120, 140, 40));
+        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 110, 140, 40));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Ingrese los datos a la tabla");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -182,7 +182,9 @@ public class VistaModeloAsignacion extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

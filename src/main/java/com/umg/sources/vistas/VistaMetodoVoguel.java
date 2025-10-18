@@ -44,8 +44,8 @@ public class VistaMetodoVoguel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1000, 0));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 800));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 800));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1200, 800));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 800));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -57,14 +57,14 @@ public class VistaMetodoVoguel extends javax.swing.JPanel {
         JTabla.setLayout(JTablaLayout);
         JTablaLayout.setHorizontalGroup(
             JTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 680, Short.MAX_VALUE)
         );
         JTablaLayout.setVerticalGroup(
             JTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 440, Short.MAX_VALUE)
         );
 
-        jPanel1.add(JTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 570, 440));
+        jPanel1.add(JTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 680, 440));
 
         BtnGenerar.setBackground(new java.awt.Color(102, 102, 102));
         BtnGenerar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -75,7 +75,7 @@ public class VistaMetodoVoguel extends javax.swing.JPanel {
         jLabel4.setText("Generar");
         BtnGenerar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 20, -1, -1));
 
-        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 230, 130, 60));
+        jPanel1.add(BtnGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 220, 130, 60));
 
         BtnLimpiar.setBackground(new java.awt.Color(102, 102, 102));
         BtnLimpiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -86,7 +86,7 @@ public class VistaMetodoVoguel extends javax.swing.JPanel {
         jLabel5.setText("Limpiar");
         BtnLimpiar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 22, -1, -1));
 
-        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 320, 130, 60));
+        jPanel1.add(BtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 310, 130, 60));
 
         BtnMenu.setBackground(new java.awt.Color(102, 102, 102));
         BtnMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -133,9 +133,8 @@ public class VistaMetodoVoguel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

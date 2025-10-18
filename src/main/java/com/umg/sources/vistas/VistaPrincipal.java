@@ -45,12 +45,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         contenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
 
-        contenedor.setMaximumSize(new java.awt.Dimension(800, 500));
-        contenedor.setMinimumSize(new java.awt.Dimension(800, 500));
-        contenedor.setPreferredSize(new java.awt.Dimension(800, 500));
+        contenedor.setMaximumSize(new java.awt.Dimension(1100, 900));
+        contenedor.setMinimumSize(new java.awt.Dimension(1100, 900));
+        contenedor.setPreferredSize(new java.awt.Dimension(1100, 900));
         contenedor.setLayout(new java.awt.BorderLayout());
         getContentPane().add(contenedor, java.awt.BorderLayout.CENTER);
 
