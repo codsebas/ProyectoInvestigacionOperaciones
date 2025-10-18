@@ -28,7 +28,7 @@ public class MetodoCostoMinimo {
                 }
             }
 
-            if (bestI == -1) break; // ya no hay células posibles
+            if (bestI == -1) break; 
 
             double q = Math.min(of[bestI], de[bestJ]);
             x[bestI][bestJ] += q;

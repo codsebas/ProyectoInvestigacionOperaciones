@@ -25,15 +25,15 @@ public class LogicaSimplex {
 
     public Resultado calcularSimplex(boolean maximize, String objetivoRaw, List<String> restriccionesRaw){
         try {
-            // 1) Objetivo c = [c1, c2] a partir de "120x + 200y" (sin Z=)
+            
             double[] c = NaturalParser_IO.parseObjective(objetivoRaw);
 
-            // 2) Restricciones (acepta <=, >=, = y "x, y > N" si añadiste ese helper)
+            // 2) Restricciones
             List<LPSolver2D_IO.Constraint> cons = new ArrayList<>();
             for (String r : restriccionesRaw) {
                 if (r == null || r.trim().isEmpty()) continue;
 
-                // Si implementaste el atajo conjunto:
+            
                 List<NaturalParser_IO.ParsedConstraint> joint = NaturalParser_IO.tryParseJointLowerBound(r);
                 if (joint != null && !joint.isEmpty()) {
                     for (var pc : joint)

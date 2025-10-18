@@ -83,48 +83,48 @@ public class VistaMenu extends javax.swing.JPanel {
         BtnMetGrafico.setPreferredSize(new java.awt.Dimension(140, 45));
         BtnMetGrafico.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Metodo Grafico");
-        BtnMetGrafico.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 16));
+        BtnMetGrafico.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 16));
 
-        contenedor.add(BtnMetGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 170, 40));
+        contenedor.add(BtnMetGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 440, 220, 90));
 
         BtnMetSimplex.setBackground(new java.awt.Color(102, 102, 102));
         BtnMetSimplex.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnMetSimplex.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setBackground(new java.awt.Color(102, 204, 255));
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Metodo Simplex");
-        BtnMetSimplex.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 8, -1, -1));
+        BtnMetSimplex.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        contenedor.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 170, 40));
+        contenedor.add(BtnMetSimplex, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 220, 90));
 
         BtnModAsig.setBackground(new java.awt.Color(102, 102, 102));
         BtnModAsig.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnModAsig.setPreferredSize(new java.awt.Dimension(140, 45));
         BtnModAsig.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Modelo Asignacion");
-        BtnModAsig.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        BtnModAsig.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
-        contenedor.add(BtnModAsig, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 380, 170, 40));
+        contenedor.add(BtnModAsig, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 440, 220, 90));
 
         BtnMetTransportes.setBackground(new java.awt.Color(102, 102, 102));
         BtnMetTransportes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnMetTransportes.setPreferredSize(new java.awt.Dimension(140, 45));
         BtnMetTransportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Metodos de transporte");
-        BtnMetTransportes.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        BtnMetTransportes.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        contenedor.add(BtnMetTransportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 170, 40));
+        contenedor.add(BtnMetTransportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 220, 90));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

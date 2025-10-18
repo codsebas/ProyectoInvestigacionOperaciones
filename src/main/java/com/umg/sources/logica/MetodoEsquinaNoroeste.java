@@ -25,7 +25,7 @@ public class MetodoEsquinaNoroeste {
             boolean filaCero = Math.abs(of[i]) < TransporteUtils.EPS;
             boolean colCero  = Math.abs(de[j]) < TransporteUtils.EPS;
 
-            if (filaCero && colCero) { i++; }     // convención: avanza fila
+            if (filaCero && colCero) { i++; }    
             else if (filaCero)        { i++; }
             else                      { j++; }
         }

@@ -4,13 +4,13 @@ import java.text.Normalizer;
 
 public class NaturalParser {
 
-    // Normaliza: unicode raro -> ASCII simple, colapsa espacios, etc.
+   
     private static String normalize(String s) {
         if (s == null) return "";
         String t = Normalizer.normalize(s, Normalizer.Form.NFKC);
-        t = t.replace("−","-")           // menos unicode
-                .replace("×","*");          // por si meten símbolo de multiplicación
-        // deja solo lo necesario (números, x/y, signos, punto/coma, *, espacios)
+        t = t.replace("−","-")           
+                .replace("×","*");        
+       
         t = t.replaceAll("[^0-9xXyY+\\-\\.,\\*<>= ]", " ");
         t = t.trim().replaceAll("\\s+", " ");
         return t;
@@ -24,25 +24,21 @@ public class NaturalParser {
         return Double.parseDouble(s);
     }
 
-    /**
-     * Parse de un lado tipo "120x + 200y", "x - y", "-0,5y + x", "120 x + 200 y", "2*x + 3*y"
-     * SIN regex: reemplaza '-' por '+-' y separa por '+'. Soporta espacios y '*'.
-     * Devuelve [coefX, coefY].
-     */
+    
     private static double[] parseXYSide(String rawSide) {
         String side = normalize(rawSide);
 
-        // 1) quita espacios alrededor de x/y y de '*'
-        side = side.replaceAll("\\s*\\*\\s*", "*")   // "2 * x" -> "2*x"
-                .replaceAll("\\s*[xX]\\b", "x")  // "  x" -> "x"
+     
+        side = side.replaceAll("\\s*\\*\\s*", "*")   
+                .replaceAll("\\s*[xX]\\b", "x")
                 .replaceAll("\\s*[yY]\\b", "y")
                 .replaceAll("\\bx\\s*", "x")
                 .replaceAll("\\by\\s*", "y");
 
-        // 2) convierte "2*x" en "2x"
+       
         side = side.replaceAll("(\\d(?:[\\.\\,]\\d+)?)\\*([xy])", "$1$2");
 
-        // 3) tokeniza por "+" manejando signos negativos como "+-"
+        
         side = side.replace("-", "+-");
         String[] tokens = side.split("\\+");
 
@@ -53,7 +49,7 @@ public class NaturalParser {
             String term = tk.trim();
             if (term.isEmpty()) continue;
 
-            // ¿es término de x?
+           
             int ix = term.indexOf('x');
             if (ix >= 0) {
                 String coef = term.substring(0, ix).trim();
@@ -62,7 +58,7 @@ public class NaturalParser {
                 hits++;
                 continue;
             }
-            // ¿es término de y?
+         
             int iy = term.indexOf('y');
             if (iy >= 0) {
                 String coef = term.substring(0, iy).trim();
@@ -71,7 +67,7 @@ public class NaturalParser {
                 hits++;
                 continue;
             }
-            // si llega aquí es un término que no contiene x ni y (lo ignoramos)
+          
         }
 
         if (hits == 0)
@@ -80,7 +76,7 @@ public class NaturalParser {
         return new double[]{cx, cy};
     }
 
-    /** Objetivo SOLO como "2x + 3y" (sin 'Z ='). Devuelve [c1, c2]. */
+  
     public static double[] parseObjective(String raw){
         if (raw == null || raw.trim().isEmpty())
             throw new IllegalArgumentException("Objetivo vacío.");
@@ -97,7 +93,7 @@ public class NaturalParser {
         }
     }
 
-    /** Acepta: "2x + y <= 10", "x - y = 3", "-y >= 2,5", también ≤ ≥ y coma decimal. */
+    
     public static ParsedConstraint parseConstraint(String raw){
         if (raw == null || raw.trim().isEmpty())
             throw new IllegalArgumentException("Restricción vacía.");

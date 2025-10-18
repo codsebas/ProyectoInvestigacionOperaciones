@@ -4,7 +4,7 @@ import java.util.*;
 
 public class LPSolver2D {
 
-    public enum Type { LE, GE, EQ } // <=, >=, =
+    public enum Type { LE, GE, EQ } 
 
     public static class Constraint {
         public final double a, b, c;
@@ -12,7 +12,7 @@ public class LPSolver2D {
         public Constraint(double a, double b, double c, Type type) {
             this.a = a; this.b = b; this.c = c; this.type = type;
         }
-        Constraint toLE() { // GE -> multiplico por -1 para comparar como <=
+        Constraint toLE() { 
             return (type == Type.GE) ? new Constraint(-a, -b, -c, Type.LE) : this;
         }
         Line asLine() { return new Line(a, b, c); }
@@ -47,22 +47,22 @@ public class LPSolver2D {
 
     private static Optional<double[]> intersect(Line l1, Line l2){
         double det = l1.a*l2.b - l2.a*l1.b;
-        if (Math.abs(det) < EPS) return Optional.empty(); // paralelas
+        if (Math.abs(det) < EPS) return Optional.empty(); 
         double x = (l1.c*l2.b - l2.c*l1.b) / det;
         double y = (l1.a*l2.c - l2.a*l1.c) / det;
         return Optional.of(new double[]{x, y});
     }
 
-    /** Resuelve max/min Z=c1*x+c2*y con hasta 4 restricciones y x>=0,y>=0 */
+
     public static Result solve(List<Constraint> cons, double c1, double c2, boolean maximize){
-        // BORDES de todas las restricciones
+        
         List<Line> lines = new ArrayList<>();
         for (Constraint c : cons) lines.add((c.type==Type.GE? c.toLE() : c).asLine());
-        // Ejes
+        
         lines.add(new Line(1,0,0)); // x = 0
         lines.add(new Line(0,1,0)); // y = 0
 
-        // Candidatos = intersecciones de pares de líneas + origen
+      
         Set<String> seen = new HashSet<>();
         List<double[]> candidates = new ArrayList<>();
         for (int i=0;i<lines.size();i++){

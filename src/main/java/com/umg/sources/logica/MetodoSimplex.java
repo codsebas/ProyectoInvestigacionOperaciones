@@ -5,90 +5,85 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Simplex de MAX con Dos Fases (holguras, excedentes y artificiales).
- * Entrada:
- *   resolver("4x1 + 6x2", "1x1+2x2<=8;3x1+2x2>=6;x1>=0;x2>=0")
- * Devuelve historia de tableaux (inicial + iteraciones) para tabs.
- */
+
 public class MetodoSimplex {
 
     // ----------------- Modelo interno -----------------
     private static final double EPS = 1e-9;
 
-    private double[][] T;          // tableau actual
-    private int m;                 // # restricciones (sin no-negatividad)
-    private int n;                 // # variables originales x
-    private int nSlack;            // # holguras/excedentes
-    private int nArtificial;       // # artificiales
-    private int colRHS;            // índice última columna
-    private int[] basis;           // basis[i] = índice de columna básica en fila i (i>=1)
-    private String[] colNames;     // nombres de columnas (Z, x1.., s1.., a1.., RHS)
-    private String[] rowNames;     // nombres de filas básicas (Z, varBasica1...)
-    private double[] cOriginal;    // objetivo original
+    private double[][] T;          
+    private int m;                
+    private int n;               
+    private int nSlack;           
+    private int nArtificial;       
+    private int colRHS;           
+    private int[] basis;           
+    private String[] colNames;    
+    private String[] rowNames;     
+    private double[] cOriginal;    
 
     private final List<DefaultTableModel> historial = new ArrayList<>();
 
-    // ----------------- API pública -----------------
+  
     public List<DefaultTableModel> resolver(String funcionObjetivo, String restricciones) {
-        // 1) Parseo
+      
         cOriginal = parseObjetivo(funcionObjetivo);
         n = cOriginal.length;
 
         List<Constraint> cons = parseRestricciones(restricciones, n);
-        // Filtra xk>=0; están implícitas
+        
         cons.removeIf(c -> c.isOnlyNonNeg);
 
         if (cons.isEmpty())
             throw new IllegalArgumentException("No hay restricciones válidas.");
 
-        // 2) Estandarización y conteo de s/a
+   
         List<RowBuild> filas = new ArrayList<>();
         nSlack = 0; nArtificial = 0;
 
         for (Constraint c : cons) {
-            // Mueve todo al lado izquierdo: (LHS - RHS) sentido 0
+          
             RowBuild rb = toLeft(c, n);
-            // Normaliza RHS >= 0, ajusta sentido
+          
             if (rb.b < -EPS) {
                 rb.multiply(-1);
                 rb.flipSense();
             }
-            // Aplica variables auxiliares según sentido
+         
             if (rb.sense == Sense.LE) {
                 rb.addSlack(++nSlack, +1);
             } else if (rb.sense == Sense.GE) {
-                rb.addSlack(++nSlack, -1);     // excedente
+                rb.addSlack(++nSlack, -1);   
                 rb.addArtificial(++nArtificial);
-            } else { // EQ
+            } else { 
                 rb.addArtificial(++nArtificial);
             }
             filas.add(rb);
         }
 
-        // 3) Construye tableau FASE I: max -sum(a)  (equiv. min sum(a))
+     
         buildTableauPhaseI(filas);
 
-        // 4) Guarda tabla inicial
+       
         historial.add(toTableModel("Inicial (Fase I)"));
 
-        // 5) Simplex FASE I
+        
         while (pivotOneIteration("Fase I")) {
             historial.add(toTableModel("Iteración (Fase I)"));
         }
 
-        // 6) Verifica factibilidad
+       
         double objectivePhaseI = T[0][colRHS];
         if (objectivePhaseI < -1e-6) {
             throw new RuntimeException("Problema INFACTIBLE (Fase I terminó con valor < 0).");
         }
 
-        // 7) Quita columnas artificiales y arma objetivo original (FASE II)
+        
         removeArtificialColumnsAndBuildPhaseII();
 
         historial.add(toTableModel("Inicio (Fase II)"));
 
-        // 8) Simplex FASE II
+       
         while (pivotOneIteration("Fase II")) {
             historial.add(toTableModel("Iteración (Fase II)"));
         }
@@ -97,35 +92,35 @@ public class MetodoSimplex {
     }
 
     public DefaultTableModel tablaFinal() {
-        // Vector solución en orden de columnas (x, s, a) + Z
-        int totalVars = colRHS - 1; // sin Z y sin RHS (col 0 es Z)
+        
+        int totalVars = colRHS - 1; 
         String[] headers = new String[totalVars + 1];
         int h = 0;
-        // columnas desde 1..colRHS-1 (excluye RHS), excepto col 0
+        
         for (int j = 1; j < colRHS; j++) headers[h++] = colNames[j];
         headers[totalVars] = "Z";
 
         Object[][] data = new Object[1][totalVars + 1];
         Arrays.fill(data[0], 0.0);
 
-        // Lee valores básicos (RHS de cada fila básica)
+       
         for (int i = 1; i <= m; i++) {
             int col = basis[i];
-            int idx = col - 1; // desplaza porque headers no incluyen Z
+            int idx = col - 1; 
             if (idx >= 0 && idx < totalVars) {
                 data[0][idx] = fmt(T[i][colRHS]);
             }
         }
 
-        data[0][totalVars] = fmt(T[0][colRHS]); // valor Z
+        data[0][totalVars] = fmt(T[0][colRHS]);
         return new DefaultTableModel(data, headers);
     }
 
-    // ----------------- Construcción de la Fase I -----------------
+  
     private void buildTableauPhaseI(List<RowBuild> filas) {
         m = filas.size();
 
-        int nCols = 1 /*Z*/ + n /*x*/ + nSlack /*s*/ + nArtificial /*a*/ + 1 /*RHS*/;
+        int nCols = 1  + n+ nSlack + nArtificial + 1 ;
         colRHS = nCols - 1;
 
         T = new double[m + 1][nCols];
@@ -133,14 +128,14 @@ public class MetodoSimplex {
         rowNames = new String[m + 1];
         basis = new int[m + 1];
 
-        // Nombres de columnas
+        
         colNames[0] = "Z";
         for (int j = 1; j <= n; j++) colNames[j] = "x" + j;
         for (int k = 1; k <= nSlack; k++) colNames[n + k] = "s" + k;
         for (int a = 1; a <= nArtificial; a++) colNames[n + nSlack + a] = "a" + a;
         colNames[colRHS] = "RHS";
 
-        // Fila Z de Fase I: max -sum(a)
+       
         T[0][0] = 1.0;
         for (int a = 1; a <= nArtificial; a++) {
             int colA = n + nSlack + a;
@@ -148,23 +143,23 @@ public class MetodoSimplex {
         }
         rowNames[0] = "Z";
 
-        // Construcción de filas
+        
         int row = 1;
         int slackCount = 0, artCount = 0;
 
         for (RowBuild rb : filas) {
-            // coeficientes de x
+            
             for (int j = 0; j < n; j++) T[row][1 + j] = rb.coeff[j];
 
-            // holgura/excedente
+         
             if (rb.slackSign != 0) {
                 slackCount++;
                 int colS = 1 + n + (slackCount - 1);
                 T[row][colS] = rb.slackSign;
-                rb.slackIndex = slackCount; // guardamos su índice real de columna
+                rb.slackIndex = slackCount; 
             }
 
-            // artificial (si aplica)
+           
             if (rb.hasArtificial) {
                 artCount++;
                 int colA = 1 + n + nSlack + (artCount - 1);
@@ -182,7 +177,7 @@ public class MetodoSimplex {
             row++;
         }
 
-        // Ajuste canónico de la fila Z para Fase I
+      
         for (int i = 1; i <= m; i++) {
             int colB = basis[i];
             if (isArtificial(colB)) {
@@ -192,15 +187,15 @@ public class MetodoSimplex {
     }
 
 
-    // ----------------- Paso a la Fase II -----------------
+    
     private void removeArtificialColumnsAndBuildPhaseII() {
-        // Construye nuevo listado de columnas SIN artificiales
+    
         List<Integer> keep = new ArrayList<>();
         for (int j = 0; j < T[0].length; j++) {
             if (j == 0 || j == colRHS || !isArtificial(j)) keep.add(j);
         }
 
-        // Mapea indices
+        
         int nColsNew = keep.size();
         double[][] N = new double[m + 1][nColsNew];
         String[] namesNew = new String[nColsNew];
@@ -217,21 +212,21 @@ public class MetodoSimplex {
         colNames = namesNew;
         colRHS = nColsNew - 1;
 
-        // Recalcula base (traduciendo indices)
+        
         int[] basisNew = new int[m + 1];
         basisNew[0] = 0;
         for (int i = 1; i <= m; i++) {
             int old = basis[i];
-            // Busca su nueva posición
+            
             for (int jj = 0; jj < keep.size(); jj++) if (keep.get(jj) == old) basisNew[i] = jj;
             rowNames[i] = colNames[basisNew[i]];
         }
         basis = basisNew;
 
-        // Fila Z para Fase II: coef = -c en x, 0 en s, RHS 0, y luego resta combinaciones de filas básicas
+        
         Arrays.fill(T[0], 0.0);
         T[0][0] = 1.0;
-        // coloca -c en columnas x
+        
         for (int j = 1; j < colRHS; j++) {
             String name = colNames[j];
             if (name.startsWith("x")) {
@@ -239,7 +234,7 @@ public class MetodoSimplex {
                 if (idx >= 0 && idx < cOriginal.length) T[0][j] = -cOriginal[idx];
             }
         }
-        // canónica respecto a la base actual
+       
         for (int i = 1; i <= m; i++) {
             int colB = basis[i];
             double coef = T[0][colB];
@@ -249,17 +244,17 @@ public class MetodoSimplex {
         }
     }
 
-    // ----------------- Iteración Simplex -----------------
+    
     private boolean pivotOneIteration(String fase) {
-        // Elegir columna de entrada (más negativo en Z)
+       
         int colIn = -1;
         double min = -EPS;
-        for (int j = 1; j < colRHS; j++) { // no tocar Z ni RHS
+        for (int j = 1; j < colRHS; j++) { 
             if (T[0][j] < min) { min = T[0][j]; colIn = j; }
         }
-        if (colIn == -1) return false; // óptimo
+        if (colIn == -1) return false; 
 
-        // Razón mínima
+        
         int rowOut = -1;
         double best = Double.POSITIVE_INFINITY;
         for (int i = 1; i <= m; i++) {
@@ -273,7 +268,7 @@ public class MetodoSimplex {
         }
         if (rowOut == -1) throw new RuntimeException("Solución NO ACOTADA (" + fase + ").");
 
-        // Pivot
+        
         pivot(rowOut, colIn);
         basis[rowOut] = colIn;
         rowNames[rowOut] = colNames[colIn];
@@ -291,12 +286,12 @@ public class MetodoSimplex {
         }
     }
 
-    // Desempate estilo Bland para evitar ciclos en casos degenerados
+   
     private boolean bland(int candidateCol, int currentBasisCol) {
         return candidateCol < currentBasisCol;
     }
 
-    // ----------------- TableModel para UI -----------------
+  
     private DefaultTableModel toTableModel(String titulo) {
         String[] headers = new String[colNames.length + 1];
         headers[0] = "Var. Básica";
@@ -317,7 +312,7 @@ public class MetodoSimplex {
     private static String fmt(double v) { return String.format(Locale.ROOT, "%.2f", v); }
     private boolean isArtificial(int col) { return colNames[col] != null && colNames[col].startsWith("a"); }
 
-    // ----------------- Parser -----------------
+
     private static class Constraint {
         double[] left;   double cLeft;
         double[] right;  double cRight;
@@ -339,7 +334,7 @@ public class MetodoSimplex {
             String r = raw.trim();
             if (r.isEmpty()) continue;
 
-            // Detecta no-negatividad "xk>=0" o "xk >= 0"
+       
             if (r.matches("\\s*x\\d+\\s*>=\\s*0\\s*")) {
                 Constraint c = new Constraint();
                 c.isOnlyNonNeg = true;
@@ -369,21 +364,21 @@ public class MetodoSimplex {
     }
 
     private static class ParsedExpr {
-        double[] coef;  // tamaño nVars (o autoajusta si nVars=0)
-        double c0;      // término constante
+        double[] coef; 
+        double c0;      
     }
 
     private ParsedExpr parseLinearExpr(String raw, int nVarsHint) {
         String s = raw.replace(" ", "").toLowerCase(Locale.ROOT);
-        // Normaliza signos
+      
         s = s.replace("-", "+-");
         if (s.startsWith("+")) s = s.substring(1);
 
-        // Terminos separados por '+'
+       
         String[] terms = s.isEmpty() ? new String[0] : s.split("\\+");
 
-        int maxVar = n; // por omisión usa n conocido (de la FO)
-        // Si no se conoce aún (en FO), dedúcelo
+        int maxVar = n; 
+       
         if (nVarsHint == 0) {
             Pattern pVar = Pattern.compile("([+-]?\\d*(?:\\.\\d+)?)\\*?x(\\d+)");
             for (String t : terms) {
@@ -425,14 +420,14 @@ public class MetodoSimplex {
         return pe;
     }
 
-    // ----------------- Helpers de filas/estandarización -----------------
+  
     private static class RowBuild {
         double[] coeff;
         double b;
         Sense sense;
 
-        int slackSign;        // +1 holgura, -1 excedente, 0 ninguna
-        int slackIndex = 0;   // 1..nSlack (la que le toca a esta fila)
+        int slackSign;        
+        int slackIndex = 0;   
         boolean hasArtificial;
         int artificialIndex = 0;
 
@@ -453,7 +448,7 @@ public class MetodoSimplex {
 
     private RowBuild toLeft(Constraint c, int n) {
         RowBuild rb = new RowBuild(n);
-        // (LHS - RHS) * x  <=/?/>=  (constRHS - constLHS)
+      
         for (int i = 0; i < n; i++) {
             double li = i < c.left.length  ? c.left[i]  : 0.0;
             double ri = i < c.right.length ? c.right[i] : 0.0;

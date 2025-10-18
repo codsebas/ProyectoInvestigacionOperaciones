@@ -9,11 +9,11 @@ package com.umg.sources.modelo;
  * @author sebas
  */
 public class ProblemaTransporte {
-    public final double[][] costos; // m x n (sin etiquetas)
-    public final double[] oferta;   // m
-    public final double[] demanda;  // n
-    public final String[] filas;    // etiquetas A.. (opcional)
-    public final String[] columnas; // D1..Dn (opcional)
+    public final double[][] costos; 
+    public final double[] oferta;   
+    public final double[] demanda; 
+    public final String[] filas;   
+    public final String[] columnas;
 
     public ProblemaTransporte(double[][] costos, double[] oferta, double[] demanda,
                               String[] filas, String[] columnas) {

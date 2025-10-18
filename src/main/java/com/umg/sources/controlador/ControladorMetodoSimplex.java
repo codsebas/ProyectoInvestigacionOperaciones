@@ -180,8 +180,7 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
         agregarSiNoVacio(res, modelo.getVista().TxtRestriccion3.getText());
         agregarSiNoVacio(res, modelo.getVista().TxtRestriccion4.getText());
         agregarSiNoVacio(res, modelo.getVista().TxtRestriccion5.getText());
-        // El formato esperado por MetodoSimplex: cada restricción separada por ';'
-        // Ej: "2x1+1x2<=8;1x1+2x2<=6;x1>=0;x2>=0"
+
         return String.join(";", res);
     }
 
@@ -197,20 +196,19 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
             DefaultTableModel m = (DefaultTableModel) tablaFinal.getModel();
             if (m.getRowCount() == 0) return "";
 
-            // Última columna es Z según tu MetodoSimplex.tablaFinal()
+     
             int colZ = m.getColumnCount() - 1;
             String zStr = safeCell(m.getValueAt(0, colZ));
             double z = parseNumber(zStr);
 
-            // Intenta leer x1 y x2 si existen como primeras columnas
+         
             String x1 = null, x2 = null;
             if (m.getColumnCount() > 0) x1 = safeCell(m.getValueAt(0, 0));
             if (m.getColumnCount() > 1) x2 = safeCell(m.getValueAt(0, 1));
 
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("Z=%.6f", z));
-
-            // Si x1/x2 existen y son numéricos, muéstralos como x e y por compatibilidad visual
+            
             if (x1 != null) {
                 double vx1 = parseNumber(x1);
                 sb.append(String.format(", x=%.6f", vx1));
@@ -222,7 +220,7 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
 
             return sb.toString();
         } catch (Exception ex) {
-            // Si algo falla, al menos deja Z si es posible
+   
             try {
                 DefaultTableModel m = (DefaultTableModel) tablaFinal.getModel();
                 int colZ = m.getColumnCount() - 1;
@@ -243,7 +241,7 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
         try {
             return Double.parseDouble(s);
         } catch (NumberFormatException nfe) {
-            // Intenta si viene formateado tipo "12.34" ya como String con 2 decimales
+
             String t = s.replaceAll("[^0-9+\\-\\.Ee]", "");
             return Double.parseDouble(t.isEmpty() ? "0" : t);
         }

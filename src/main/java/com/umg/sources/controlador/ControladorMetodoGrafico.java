@@ -56,18 +56,18 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
             v.TxtRestriccion3.setText("");
             v.TxtRestriccion4.setText("");
             v.TxtResultado.setText("");
-            // limpiar canvas -> deja solo x>=0, y>=0 (sin objetivo)
+  
             v.dibujar(new double[][]{{1,0},{0,1}}, new double[]{0,0}, new char[]{'>','>'}, null, null);
             return;
         }
 
         if (e.getComponent().equals(v.BtnGenerar)) {
             try {
-                // 1) Objetivo
+        
                 double[] c = NaturalParser.parseObjective(v.TxtZ.getText());
                 double c1 = c[0], c2 = c[1];
 
-                // 2) Restricciones (hasta 4). Ignora vacías. Valida formato.
+             
                 List<LPSolver2D.Constraint> cons = new ArrayList<>();
                 String[] raws = new String[]{
                         v.TxtRestriccion1.getText(),
@@ -95,14 +95,13 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
                     return;
                 }
 
-                // 3) Max/Min desde el combo
+          
                 boolean maximize = v.CmbOpciones.getSelectedItem().toString()
                         .toLowerCase(Locale.ROOT).contains("max");
 
-                // 4) Resolver (tu lógica existente)
+       
                 var res = LPSolver2D.solve(cons, c1, c2, maximize);
 
-                // 5) Mostrar resultado en TxtResultado (tu comportamiento original)
                 if (!res.feasible) {
                     v.TxtResultado.setText("Infactible");
                 } else if (res.unbounded) {
@@ -113,8 +112,7 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
                     );
                 }
 
-                // 6) ---- Graficar con sombreado + auto-escala en TU PanelGrafica ----
-                // Convertir tus restricciones a A, b, signs
+    
                 int m = cons.size();
                 double[][] A = new double[m][2];
                 double[] b = new double[m];
@@ -128,7 +126,7 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
                     else signs[i] = '=';
                 }
 
-                double[] cObj = new double[]{c1, c2}; // recta objetivo (visual)
+                double[] cObj = new double[]{c1, c2};
                 double[] xopt = (res.feasible && !res.unbounded) ? new double[]{res.x, res.y} : null;
 
                 v.dibujar(A, b, signs, cObj, xopt);

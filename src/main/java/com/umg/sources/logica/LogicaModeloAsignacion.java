@@ -5,13 +5,10 @@ import java.util.Arrays;
 
 public class LogicaModeloAsignacion {
 
-    private static final double INF = 1e12;   // para prohibidos (valor grande finito)
-    private static final double DUMMY_COST = 0.0; // costo de dummies al cuadrar
+    private static final double INF = 1e12;  
+    private static final double DUMMY_COST = 0.0; 
 
-    /**
-     * Resuelve Asignación (min) con Húngaro y devuelve:
-     * "1-A = 2, 2-C = 12, 3-B = 7, 4-D = 7"
-     */
+   
     public static String resolver(ProblemaAsignacion p) {
         // -------- Validaciones --------
         if (p == null || p.costos == null || p.costos.length == 0 || p.costos[0].length == 0) {
@@ -30,7 +27,7 @@ public class LogicaModeloAsignacion {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (!Double.isFinite(costos[i][j]) || costos[i][j] >= INF / 2) {
-                    costos[i][j] = INF; // mantener grande pero finito
+                    costos[i][j] = INF; 
                 }
             }
         }
@@ -41,14 +38,13 @@ public class LogicaModeloAsignacion {
         for (int i = 0; i < k; i++) Arrays.fill(c[i], DUMMY_COST);
         for (int i = 0; i < m; i++) System.arraycopy(costos[i], 0, c[i], 0, n);
 
-        // -------- Húngaro (min) --------
-        int[] asign = hungarianMin(c); // asign[i] = j en 0..k-1
+      
+        int[] asign = hungarianMin(c); 
 
-        // -------- Formato: "1-A = 2, 2-C = 12, ..." --------
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < m; i++) {
             int j = asign[i];
-            if (j < 0 || j >= n) continue; // saltar dummies/invalid
+            if (j < 0 || j >= n) continue; 
 
             String fila = (p.filas != null && i < p.filas.length && p.filas[i] != null && !p.filas[i].isEmpty())
                     ? p.filas[i]
@@ -74,7 +70,7 @@ public class LogicaModeloAsignacion {
         return b;
     }
 
-    // Húngaro (min) para matriz cuadrada k x k (O(n^3))
+    
     private static int[] hungarianMin(double[][] a) {
         int n = a.length;
         for (double[] fila : a) {
@@ -83,13 +79,13 @@ public class LogicaModeloAsignacion {
 
         double[][] cost = copiar(a);
 
-        // Reducción por filas
+     
         for (int i = 0; i < n; i++) {
             double min = Arrays.stream(cost[i]).min().orElse(0.0);
             if (!Double.isFinite(min)) min = 0.0;
             for (int j = 0; j < n; j++) cost[i][j] -= min;
         }
-        // Reducción por columnas
+       
         for (int j = 0; j < n; j++) {
             double min = Double.POSITIVE_INFINITY;
             for (int i = 0; i < n; i++) min = Math.min(min, cost[i][j]);

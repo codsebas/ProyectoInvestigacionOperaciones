@@ -6,13 +6,13 @@ import java.util.List;
 
 public class NaturalParser_IO {
 
-    // Normaliza: unicode raro -> ASCII simple, colapsa espacios, etc.
+   
     private static String normalize(String s) {
         if (s == null) return "";
         String t = Normalizer.normalize(s, Normalizer.Form.NFKC);
-        t = t.replace("−","-")           // menos unicode
-                .replace("×","*");          // símbolo de multiplicación
-        // permite números, x/y, signos, punto/coma, '*', '<', '>', '=', coma separadora y espacios
+        t = t.replace("−","-")           
+                .replace("×","*");         
+       
         t = t.replaceAll("[^0-9xXyY+\\-\\.,\\*<>=, ]", " ");
         t = t.trim().replaceAll("\\s+", " ");
         return t;
@@ -26,24 +26,21 @@ public class NaturalParser_IO {
         return Double.parseDouble(s);
     }
 
-    /**
-     * Parsea un lado tipo "120x + 200y", "x - y", "-0,5y + x", "120 x + 200 y", "2*x + 3*y"
-     * Devuelve [coefX, coefY].
-     */
+   
     private static double[] parseXYSide(String rawSide) {
         String side = normalize(rawSide);
 
-        // quita espacios alrededor de x/y y de '*'
+     
         side = side.replaceAll("\\s*\\*\\s*", "*")
                 .replaceAll("\\s*[xX]\\b", "x")
                 .replaceAll("\\s*[yY]\\b", "y")
                 .replaceAll("\\bx\\s*", "x")
                 .replaceAll("\\by\\s*", "y");
 
-        // "2*x" -> "2x"
+   
         side = side.replaceAll("(\\d(?:[\\.\\,]\\d+)?)\\*([xy])", "$1$2");
 
-        // tokeniza por "+" manejando negativos como "+-"
+       
         side = side.replace("-", "+-");
         String[] tokens = side.split("\\+");
 
@@ -72,7 +69,7 @@ public class NaturalParser_IO {
         return new double[]{cx, cy};
     }
 
-    /** Objetivo SOLO como "2x + 3y" (sin 'Z ='). Devuelve [c1, c2]. */
+   
     public static double[] parseObjective(String raw){
         if (raw == null || raw.trim().isEmpty())
             throw new IllegalArgumentException("Objetivo vacío.");
@@ -97,7 +94,7 @@ public class NaturalParser_IO {
                 .replace("≤","<=")
                 .replace("≥",">=");
 
-        // Aceptar también '<' y '>'
+      
         String op;
         if (s.contains("<="))      op = "<=";
         else if (s.contains(">=")) op = ">=";
@@ -131,8 +128,8 @@ public class NaturalParser_IO {
 
 
 
-    // --- NUEVO: detectar "x, y > 50" / "x, y >= 50" ---
-    /** Si la línea es "x, y > N" (o >=, ≥), retorna 2 restricciones: x>=N, y>=N. Si no aplica, lista vacía. */
+
+   
     public static List<ParsedConstraint> tryParseJointLowerBound(String raw){
         List<ParsedConstraint> out = new ArrayList<>();
         if (raw == null) return out;
@@ -144,7 +141,7 @@ public class NaturalParser_IO {
         String num = s.replaceAll(".*(>=|>)\\s*", "");
         double bound = Double.parseDouble(num.replace(',', '.'));
 
-        // En PL tratamos ">" como "≥" (si quieres estricto, podrías sumar 1e-9)
+       
         LPSolver2D_IO.Type t = LPSolver2D_IO.Type.GE;
         out.add(new ParsedConstraint(1, 0, bound, t)); // x >= bound
         out.add(new ParsedConstraint(0, 1, bound, t)); // y >= bound

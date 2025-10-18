@@ -50,12 +50,12 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
             String sFilas = modelo.getVista().TxtFilas.getText().trim();
             String sCols = modelo.getVista().TxtColumnas.getText().trim();
             if (sFilas.isEmpty() || sCols.isEmpty()) {
-                /* mensaje y return */ }
-            int nFilas = Integer.parseInt(sFilas);    // suministros (A,B,C,...)
-            int nDemandas = Integer.parseInt(sCols);  // D1..Dn
+            }
+            int nFilas = Integer.parseInt(sFilas);   
+            int nDemandas = Integer.parseInt(sCols); 
 
             if (nFilas <= 0 || nDemandas <= 0) {
-                /* mensaje y return */ }
+            }
 
             generarTablaTransporte(nFilas, nDemandas);
 
@@ -137,21 +137,21 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
     }
 
     private void generarTablaTransporte(int nFilasSuministro, int nDemandas) {
-        // Construir encabezados: ["", D1..Dn, "Oferta"]
+   
         String[] colNames = new String[1 + nDemandas + 1];
-        colNames[0] = ""; // columna de etiquetas de filas
+        colNames[0] = "";
         for (int i = 1; i <= nDemandas; i++) {
             colNames[i] = "D" + i;
         }
         colNames[colNames.length - 1] = "Oferta";
 
-        final int totalFilas = nFilasSuministro + 1; // +1 por fila "Demanda"
+        final int totalFilas = nFilasSuministro + 1; 
         final int totalCols = colNames.length;
 
         Object[][] data = new Object[totalFilas][totalCols];
 
         for (int r = 0; r < nFilasSuministro; r++) {
-            data[r][0] = String.valueOf((char) ('A' + r)); // A, B, C...
+            data[r][0] = String.valueOf((char) ('A' + r)); 
         }
         data[totalFilas - 1][0] = "Demanda";
 
@@ -214,10 +214,10 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
             return false;
         }
 
-        final int ultimaFila = rows - 1;   // fila "Demanda"
-        final int colOferta  = cols - 1;   // última columna "Oferta"
+        final int ultimaFila = rows - 1; 
+        final int colOferta  = cols - 1; 
 
-        // 1) Validar COSTOS (filas 0..ultimaFila-1, columnas 1..colOferta-1)
+  
         for (int r = 0; r < ultimaFila; r++) {
             for (int c = 1; c < colOferta; c++) {
                 Object v = tbl.getValueAt(r, c);
@@ -242,7 +242,6 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
             }
         }
 
-        // 2) Validar OFERTAS (columna final, excepto fila Demanda)
         double sumaOferta = 0.0;
         for (int r = 0; r < ultimaFila; r++) {
             Object v = tbl.getValueAt(r, colOferta);
@@ -268,7 +267,6 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
             sumaOferta += val;
         }
 
-        // 3) Validar DEMANDAS (fila "Demanda", columnas 1..colOferta-1)
         double sumaDemanda = 0.0;
         for (int c = 1; c < colOferta; c++) {
             Object v = tbl.getValueAt(ultimaFila, c);
@@ -294,7 +292,7 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
             sumaDemanda += val;
         }
 
-        // 4) Balance: SOLO informar; NO bloquear (los métodos se auto-balancean)
+      
         final double EPS = 1e-6;
         if (Math.abs(sumaOferta - sumaDemanda) > EPS) {
             JOptionPane.showMessageDialog(
@@ -308,44 +306,39 @@ public class ControladorMetodosTransporte implements ActionListener, MouseListen
             );
         }
 
-        return true; // siempre dejar pasar si lo anterior es válido
+        return true; 
     }
 
 
-    /**
-     * Extrae costos, oferta y demanda desde la JTable respetando tu layout.
-     */
+    
     private ProblemaTransporte getProblemaFromUI() {
         JTable tbl = modelo.getVista().tblDatos;
         int rows = tbl.getRowCount();
         int cols = tbl.getColumnCount();
 
-        int m = rows - 1;  // sin la fila "Demanda"
-        int n = cols - 2;  // sin col de etiquetas (0) ni "Oferta" (última)
+        int m = rows - 1;  
+        int n = cols - 2;  
 
         double[][] costos = new double[m][n];
         double[] oferta = new double[m];
         double[] demanda = new double[n];
 
-        // etiquetas (opcional)
         String[] filas = new String[m];
         String[] columnas = new String[n];
 
-        // columnas D1..Dn están en 1..n
         for (int c = 0; c < n; c++) {
             columnas[c] = tbl.getColumnName(c + 1);
         }
 
-        // llenar costos y oferta
+   
         for (int r = 0; r < m; r++) {
-            filas[r] = String.valueOf(tbl.getValueAt(r, 0)); // etiqueta fila
+            filas[r] = String.valueOf(tbl.getValueAt(r, 0)); 
             for (int c = 0; c < n; c++) {
                 costos[r][c] = Double.parseDouble(tbl.getValueAt(r, c + 1).toString());
             }
             oferta[r] = Double.parseDouble(tbl.getValueAt(r, cols - 1).toString());
         }
 
-        // demandas (fila "Demanda")
         for (int c = 0; c < n; c++) {
             demanda[c] = Double.parseDouble(tbl.getValueAt(rows - 1, c + 1).toString());
         }

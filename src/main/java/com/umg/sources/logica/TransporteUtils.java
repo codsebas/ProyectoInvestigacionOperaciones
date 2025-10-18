@@ -7,14 +7,14 @@ public final class TransporteUtils {
     private TransporteUtils() {}
     public static final double EPS = 1e-9;
 
-    /** Balancea agregando fila o columna Dummy (costo 0) si S != D. */
+ 
     public static ProblemaTransporte balancearSiHaceFalta(ProblemaTransporte p) {
         double S = 0, D = 0;
         for (double v : p.oferta)  S += v;
         for (double v : p.demanda) D += v;
         if (Math.abs(S - D) < EPS) return p;
 
-        if (S > D) { // sobra oferta -> columna dummy
+        if (S > D) { 
             int n2 = p.n() + 1;
             double[] demanda = Arrays.copyOf(p.demanda, n2);
             demanda[n2 - 1] = S - D;
@@ -29,7 +29,7 @@ public final class TransporteUtils {
             if (cols != null) cols[n2 - 1] = "Dummy";
             return new ProblemaTransporte(costos, p.oferta, demanda, p.filas, cols);
 
-        } else {     // falta oferta -> fila dummy
+        } else {     
             int m2 = p.m() + 1;
             double[] oferta = Arrays.copyOf(p.oferta, m2);
             oferta[m2 - 1] = D - S;
@@ -44,7 +44,7 @@ public final class TransporteUtils {
         }
     }
 
-    /** Costo total de una asignación x sobre los costos de p. */
+
     public static double costoTotal(double[][] x, ProblemaTransporte p) {
         double total = 0.0;
         for (int i = 0; i < p.m(); i++)

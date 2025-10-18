@@ -45,17 +45,17 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
             String sFilas = modelo.getVista().TxtFilas.getText().trim();
             String sCols = modelo.getVista().TxtColumnas.getText().trim();
             if (sFilas.isEmpty() || sCols.isEmpty()) {
-                /* mensaje y return */ }
-            int nFilas = Integer.parseInt(sFilas);    // suministros (A,B,C,...)
-            int nDemandas = Integer.parseInt(sCols);  // D1..Dn
+              }
+            int nFilas = Integer.parseInt(sFilas);   
+            int nDemandas = Integer.parseInt(sCols);  
 
             if (nFilas <= 0 || nDemandas <= 0) {
-                /* mensaje y return */ }
+              }
 
             generarTablaAsignacion(nFilas, nDemandas);
 
         } else if (src == modelo.getVista().BtnLimpiar) {
-            // Limpia tabla
+          
             modelo.getVista().tblDatos.setModel(new DefaultTableModel());
             modelo.getVista().TxtColumnas.setText("");
             modelo.getVista().TxtFilas.setText("");
@@ -122,22 +122,22 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
     }
 
     private void generarTablaAsignacion(int nFilas, int nCols) {
-        // Encabezados: ["", A, B, C, ...]
+       
         String[] colNames = new String[1 + nCols];
-        colNames[0] = ""; // etiqueta de filas
+        colNames[0] = ""; 
         for (int c = 1; c <= nCols; c++) {
-            colNames[c] = String.valueOf((char) ('A' + (c - 1))); // A, B, C, ...
+            colNames[c] = String.valueOf((char) ('A' + (c - 1))); 
         }
 
         Object[][] data = new Object[nFilas][colNames.length];
         for (int r = 0; r < nFilas; r++) {
-            data[r][0] = String.valueOf(r + 1); // 1, 2, 3, ...
+            data[r][0] = String.valueOf(r + 1); 
         }
 
         DefaultTableModel modeloTabla = new DefaultTableModel(data, colNames) {
             @Override
             public boolean isCellEditable(int row, int col) {
-                return col != 0; // solo editar costos
+                return col != 0; 
             }
 
             @Override
@@ -180,7 +180,7 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
                     JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        // validar celdas de costos: filas 0..rows-1, columnas 1..cols-1
+       
         for (int r = 0; r < rows; r++) {
             for (int c = 1; c < cols; c++) {
                 Object v = tbl.getValueAt(r, c);
@@ -201,13 +201,11 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
         return true;
     }
 
-    /**
-     * Extrae costos, oferta y demanda desde la JTable respetando tu layout.
-     */
+    
     private ProblemaAsignacion getProblemaFromUI() {
         JTable tbl = modelo.getVista().tblDatos;
         int m = tbl.getRowCount();
-        int n = tbl.getColumnCount() - 1; // quitamos la col de etiquetas
+        int n = tbl.getColumnCount() - 1; 
 
         double[][] costos = new double[m][n];
         double[] oferta = new double[m];
@@ -216,17 +214,17 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
         String[] filas = new String[m];
         String[] columnas = new String[n];
 
-        // columnas A.. (nombres de JTable)
+    
         for (int c = 0; c < n; c++) {
             columnas[c] = tbl.getColumnName(c + 1);
         }
-        // filas 1..m y costos
+        
         for (int r = 0; r < m; r++) {
-            filas[r] = String.valueOf(tbl.getValueAt(r, 0)); // "1", "2", ...
+            filas[r] = String.valueOf(tbl.getValueAt(r, 0));
             for (int c = 0; c < n; c++) {
                 costos[r][c] = Double.parseDouble(tbl.getValueAt(r, c + 1).toString());
             }
-            oferta[r] = 1.0; // asignación 1–a–1
+            oferta[r] = 1.0; 
         }
         for (int c = 0; c < n; c++) {
             demanda[c] = 1.0;

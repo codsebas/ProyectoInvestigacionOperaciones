@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/** Simplex 2D (x,y) con Big-M. Guarda historial de tableaux. */
+
 public class LPSolver2D_IO {
 
     public enum Type  { LE, GE, EQ }
@@ -38,10 +38,7 @@ public class LPSolver2D_IO {
         }
     }
 
-    /** Resuelve:
-     *  Max/Min Z = c1 x + c2 y
-     *  a_i x + b_i y (<=, >=, =) c_i
-     */
+    
     public static Result solve(Sense sense, double[] objective, List<Constraint> cons){
         if (objective == null || objective.length != 2)
             throw new IllegalArgumentException("El objetivo debe ser [c1, c2].");
@@ -51,30 +48,30 @@ public class LPSolver2D_IO {
         final double M   = 1e6;
         final double EPS = 1e-12;
 
-        // Variables: x, y
+        
         List<String> varNames = new ArrayList<>();
         varNames.add("x"); varNames.add("y");
 
-        // Filas: [x, y, RHS]
+       
         List<double[]> rows = new ArrayList<>();
         for (Constraint r : cons) rows.add(new double[]{ r.a, r.b, r.c });
 
-        // Z: Z - c1 x - c2 y - M*sum(art) = 0
+      
         boolean wasMin = (sense == Sense.MIN);
         double c1 = objective[0], c2 = objective[1];
         if (wasMin) { c1 = -c1; c2 = -c2; } // MIN -> MAX
         double[] z = new double[]{ -c1, -c2, 0.0 };
 
-        // Variables básicas por fila
+   
         List<Integer> basis = new ArrayList<>();
 
-        // Agregar slacks/surplus/artificiales (¡z se reasigna SIEMPRE!)
+  
         for (int i = 0; i < cons.size(); i++) {
             Constraint r = cons.get(i);
 
             if (r.type == Type.LE) {
                 varNames.add("s" + (countPrefix(varNames, "s") + 1));
-                z = addColumn(rows, z, 0.0);                 // <- z actualizado
+                z = addColumn(rows, z, 0.0);                 
                 int colS = varNames.size() - 1;
                 rows.set(i, setAt(rows.get(i), colS, 1.0));
                 basis.add(colS);
@@ -100,7 +97,7 @@ public class LPSolver2D_IO {
             }
         }
 
-        // Penalización Big-M en Z para artificiales
+        // Penalización en Z para artificiales
         for (int j = 0; j < varNames.size(); j++)
             if (varNames.get(j).startsWith("a")) z[j] = -M;
 
@@ -139,7 +136,7 @@ public class LPSolver2D_IO {
                         buildTable(varNames, rows, z), history, pivots, "Problema no acotado.");
             }
 
-            // Pivot
+           
             pivots.add(new int[]{leave, enter});
             pivot(rows, z, leave, enter, EPS);
             basis.set(leave, enter);
@@ -148,7 +145,6 @@ public class LPSolver2D_IO {
             if (--maxIter <= 0) break;
         }
 
-        // Solución básica (x,y)
         double[] sol = new double[varNames.size()];
         Arrays.fill(sol, 0.0);
         for (int i = 0; i < rows.size(); i++) {
@@ -163,7 +159,6 @@ public class LPSolver2D_IO {
         double zVal = z[z.length - 1];
         if (wasMin) zVal = -zVal;
 
-        // Infactibilidad: artificial básica con RHS>0
         for (int i = 0; i < rows.size(); i++) {
             int bj = basis.get(i);
             if (varNames.get(bj).startsWith("a") && rows.get(i)[rows.get(i).length - 1] > 1e-6) {
@@ -185,17 +180,17 @@ public class LPSolver2D_IO {
         return insertBeforeRHS(z, 0.0);
     }
 
-    /** Inserta un valor justo antes del RHS (última posición). */
+ 
     private static double[] insertBeforeRHS(double[] row, double val){
         int n = row.length;
         double rhs = row[n - 1];
         double[] out = Arrays.copyOf(row, n + 1);
-        out[n] = rhs;       // mueve RHS al final
-        out[n - 1] = val;   // nueva columna
+        out[n] = rhs;     
+        out[n - 1] = val;  
         return out;
     }
 
-    /** Copia con set en índice. */
+   
     private static double[] setAt(double[] row, int col, double val){
         double[] out = Arrays.copyOf(row, row.length);
         out[col] = val;
@@ -217,12 +212,12 @@ public class LPSolver2D_IO {
         double[] R = rows.get(r);
         double piv = R[c];
 
-        // Normaliza fila pivote
+        
         double[] Rn = Arrays.copyOf(R, n);
         for (int j = 0; j < n; j++) Rn[j] /= piv;
         rows.set(r, Rn);
 
-        // Elimina en otras filas
+        
         for (int i = 0; i < rows.size(); i++){
             if (i == r) continue;
             double[] Ri = rows.get(i);
@@ -234,7 +229,7 @@ public class LPSolver2D_IO {
             }
         }
 
-        // Elimina en Z
+       
         double fz = z[c];
         if (Math.abs(fz) > EPS){
             for (int j = 0; j < n; j++) z[j] -= fz * Rn[j];
