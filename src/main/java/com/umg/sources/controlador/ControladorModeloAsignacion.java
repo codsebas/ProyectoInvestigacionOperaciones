@@ -14,28 +14,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-/**
- *
- * @author sebas
- */
+// ✅ imports para navegación y layout
+import com.umg.sources.vistas.VistaMenu;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import javax.swing.*;
+import java.awt.*;
+
 public class ControladorModeloAsignacion implements ActionListener, MouseListener, WindowListener {
 
     private final ModeloAsignacion modelo;
+    private VistaMenu vistaMenu; // ✅
 
     public ControladorModeloAsignacion(ModeloAsignacion modelo) {
         this.modelo = modelo;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-    }
+    public void actionPerformed(ActionEvent e) { }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -44,18 +44,13 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
         if (src == modelo.getVista().BtnGenTabla) {
             String sFilas = modelo.getVista().TxtFilas.getText().trim();
             String sCols = modelo.getVista().TxtColumnas.getText().trim();
-            if (sFilas.isEmpty() || sCols.isEmpty()) {
-              }
-            int nFilas = Integer.parseInt(sFilas);   
-            int nDemandas = Integer.parseInt(sCols);  
-
-            if (nFilas <= 0 || nDemandas <= 0) {
-              }
-
+            if (sFilas.isEmpty() || sCols.isEmpty()) { }
+            int nFilas = Integer.parseInt(sFilas);
+            int nDemandas = Integer.parseInt(sCols);
+            if (nFilas <= 0 || nDemandas <= 0) { }
             generarTablaAsignacion(nFilas, nDemandas);
 
         } else if (src == modelo.getVista().BtnLimpiar) {
-          
             modelo.getVista().tblDatos.setModel(new DefaultTableModel());
             modelo.getVista().TxtColumnas.setText("");
             modelo.getVista().TxtFilas.setText("");
@@ -63,81 +58,72 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
 
         } else if (src == modelo.getVista().BtnGenerar) {
             if (tablaOk()) {
-
                 ProblemaAsignacion p = getProblemaFromUI();
-                String res = "";
-                res = LogicaModeloAsignacion.resolver(p);
+                String res = LogicaModeloAsignacion.resolver(p);
                 modelo.getVista().txtResultado.setText("Resultado: " + res);
+            } else { }
 
-            } else {
-
-            }
         } else if (src == modelo.getVista().BtnRegresar) {
-
+            // ✅ Navegar a VistaMenu usando la propia vista como contenedor
+            if (vistaMenu == null) vistaMenu = new VistaMenu();
+            cambiarVista(vistaMenu);
+            return;
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
+    @Override public void mousePressed(MouseEvent e) { }
+    @Override public void mouseReleased(MouseEvent e) { }
+    @Override public void mouseEntered(MouseEvent e) { }
+    @Override public void mouseExited(MouseEvent e) { }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
+    @Override public void windowOpened(WindowEvent e) { }
+    @Override public void windowClosing(WindowEvent e) { }
+    @Override public void windowClosed(WindowEvent e) { }
+    @Override public void windowIconified(WindowEvent e) { }
+    @Override public void windowDeiconified(WindowEvent e) { }
+    @Override public void windowActivated(WindowEvent e) { }
+    @Override public void windowDeactivated(WindowEvent e) { }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
+    // ─────────────────────────────────────────────────────────
+    // 🔧 Cambiar vista con AbsoluteLayout usando la vista (JPanel) como contenedor
+    // ─────────────────────────────────────────────────────────
+    private void cambiarVista(JPanel panel) {
+        // La vista (VistaModeloAsignacion) probablemente extiende JPanel → es un Container
+        Container cont = (Container) modelo.getVista();
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
+        if (!(cont.getLayout() instanceof AbsoluteLayout)) {
+            cont.setLayout(new AbsoluteLayout());
+        }
+        cont.removeAll();
 
-    @Override
-    public void windowOpened(WindowEvent e) {
-    }
+        int w = cont.getWidth() > 0 ? cont.getWidth() : 1230;
+        int h = cont.getHeight() > 0 ? cont.getHeight() : 720;
 
-    @Override
-    public void windowClosing(WindowEvent e) {
-    }
+        panel.setSize(w, h);
+        panel.setPreferredSize(new Dimension(w, h));
+        cont.add(panel, new AbsoluteConstraints(0, 0, w, h));
 
-    @Override
-    public void windowClosed(WindowEvent e) {
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
+        cont.revalidate();
+        cont.repaint();
     }
 
     private void generarTablaAsignacion(int nFilas, int nCols) {
-       
+
         String[] colNames = new String[1 + nCols];
-        colNames[0] = ""; 
+        colNames[0] = "";
         for (int c = 1; c <= nCols; c++) {
-            colNames[c] = String.valueOf((char) ('A' + (c - 1))); 
+            colNames[c] = String.valueOf((char) ('A' + (c - 1)));
         }
 
         Object[][] data = new Object[nFilas][colNames.length];
         for (int r = 0; r < nFilas; r++) {
-            data[r][0] = String.valueOf(r + 1); 
+            data[r][0] = String.valueOf(r + 1);
         }
 
         DefaultTableModel modeloTabla = new DefaultTableModel(data, colNames) {
             @Override
             public boolean isCellEditable(int row, int col) {
-                return col != 0; 
+                return col != 0;
             }
 
             @Override
@@ -180,7 +166,7 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
                     JOptionPane.WARNING_MESSAGE);
             return false;
         }
-       
+
         for (int r = 0; r < rows; r++) {
             for (int c = 1; c < cols; c++) {
                 Object v = tbl.getValueAt(r, c);
@@ -201,11 +187,10 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
         return true;
     }
 
-    
     private ProblemaAsignacion getProblemaFromUI() {
         JTable tbl = modelo.getVista().tblDatos;
         int m = tbl.getRowCount();
-        int n = tbl.getColumnCount() - 1; 
+        int n = tbl.getColumnCount() - 1;
 
         double[][] costos = new double[m][n];
         double[] oferta = new double[m];
@@ -214,17 +199,16 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
         String[] filas = new String[m];
         String[] columnas = new String[n];
 
-    
         for (int c = 0; c < n; c++) {
             columnas[c] = tbl.getColumnName(c + 1);
         }
-        
+
         for (int r = 0; r < m; r++) {
             filas[r] = String.valueOf(tbl.getValueAt(r, 0));
             for (int c = 0; c < n; c++) {
                 costos[r][c] = Double.parseDouble(tbl.getValueAt(r, c + 1).toString());
             }
-            oferta[r] = 1.0; 
+            oferta[r] = 1.0;
         }
         for (int c = 0; c < n; c++) {
             demanda[c] = 1.0;
@@ -232,5 +216,4 @@ public class ControladorModeloAsignacion implements ActionListener, MouseListene
 
         return new ProblemaAsignacion(costos, oferta, demanda, filas, columnas);
     }
-
 }

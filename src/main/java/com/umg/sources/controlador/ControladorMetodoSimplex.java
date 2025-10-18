@@ -11,10 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+// 👇 IMPORTS NUEVOS
+import com.umg.sources.vistas.VistaMenu;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+
 public class ControladorMetodoSimplex implements ActionListener, MouseListener {
 
     private final ModeloMetodoSimplex modelo;
     private final MetodoSimplex metodo = new MetodoSimplex();
+
+    // 👇 NUEVO: referencia al menú
+    private VistaMenu vistaMenu;
 
     public ControladorMetodoSimplex(ModeloMetodoSimplex modelo) {
         this.modelo = modelo;
@@ -22,7 +30,6 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // (Reservado si luego necesitas manejar CmbOpciones por ActionListener)
         if (e.getActionCommand().equals(modelo.getVista().CmbOpciones.getActionCommand())) {
             // no-op
         }
@@ -33,12 +40,10 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
         Object src = e.getComponent();
 
         if (src.equals(modelo.getVista().BtnGenerar)) {
-            // (Si algún día quieres permitir min/max por combo)
             boolean maximize = modelo.getVista().CmbOpciones.getSelectedItem().toString()
                     .toLowerCase(Locale.ROOT).contains("max");
 
             if (!maximize) {
-                // Tu clase MetodoSimplex está planteada para max con holguras positivas
                 JOptionPane.showMessageDialog(
                         modelo.getVista(),
                         "Actualmente sólo está implementada la versión de maximización.",
@@ -55,15 +60,12 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
             String objetivo = modelo.getVista().TxtZ.getText().trim();
             String restricciones = construirRestricciones();
 
-            // Limpia panel antes de pintar resultados
             modelo.getVista().PanelTabla.removeAll();
             modelo.getVista().PanelTabla.setLayout(new BorderLayout());
 
             try {
-                // Resolver con tu MetodoSimplex
                 List<DefaultTableModel> historial = metodo.resolver(objetivo, restricciones);
 
-                // Tabs para mostrar: Inicial + Iteraciones + Final
                 JTabbedPane tabs = new JTabbedPane();
 
                 if (historial != null && !historial.isEmpty()) {
@@ -82,17 +84,14 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
                     );
                 }
 
-                // Tabla final (variables y Z)
                 JTable tFinal = new JTable(metodo.tablaFinal());
                 ajustarTamañoTabla(tFinal);
                 tabs.addTab("Final", new JScrollPane(tFinal));
 
-                // Montar tabs al panel
                 modelo.getVista().PanelTabla.add(tabs, BorderLayout.CENTER);
                 modelo.getVista().PanelTabla.revalidate();
                 modelo.getVista().PanelTabla.repaint();
 
-                // Escribir resultado en TxtResultado (Z y, si hay, x1 y x2)
                 modelo.getVista().TxtResultado.setText(construirResumenResultado(tFinal));
 
             } catch (IllegalArgumentException iae) {
@@ -113,8 +112,12 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
 
         } else if (src.equals(modelo.getVista().BtnLimpiar)) {
             limpiar();
+
         } else if (src.equals(modelo.getVista().BtnMenu)) {
-            // navegación...
+            // ✅ NAVEGAR A VistaMenu manteniendo AbsoluteLayout
+            if (vistaMenu == null) vistaMenu = new VistaMenu();
+            cambiarVista(vistaMenu);
+            return;
         }
     }
 
@@ -180,7 +183,6 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
         agregarSiNoVacio(res, modelo.getVista().TxtRestriccion3.getText());
         agregarSiNoVacio(res, modelo.getVista().TxtRestriccion4.getText());
         agregarSiNoVacio(res, modelo.getVista().TxtRestriccion5.getText());
-
         return String.join(";", res);
     }
 
@@ -196,19 +198,16 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
             DefaultTableModel m = (DefaultTableModel) tablaFinal.getModel();
             if (m.getRowCount() == 0) return "";
 
-     
             int colZ = m.getColumnCount() - 1;
             String zStr = safeCell(m.getValueAt(0, colZ));
             double z = parseNumber(zStr);
 
-         
             String x1 = null, x2 = null;
             if (m.getColumnCount() > 0) x1 = safeCell(m.getValueAt(0, 0));
             if (m.getColumnCount() > 1) x2 = safeCell(m.getValueAt(0, 1));
 
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("Z=%.6f", z));
-            
             if (x1 != null) {
                 double vx1 = parseNumber(x1);
                 sb.append(String.format(", x=%.6f", vx1));
@@ -220,7 +219,6 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
 
             return sb.toString();
         } catch (Exception ex) {
-   
             try {
                 DefaultTableModel m = (DefaultTableModel) tablaFinal.getModel();
                 int colZ = m.getColumnCount() - 1;
@@ -241,9 +239,51 @@ public class ControladorMetodoSimplex implements ActionListener, MouseListener {
         try {
             return Double.parseDouble(s);
         } catch (NumberFormatException nfe) {
-
             String t = s.replaceAll("[^0-9+\\-\\.Ee]", "");
             return Double.parseDouble(t.isEmpty() ? "0" : t);
         }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 🔧 NUEVO: cambiarVista que funciona con AbsoluteLayout
+    //     - Si existe un campo público "contenedor" en la vista, lo usa
+    //     - Si no, cae al getContentPane() (JFrame)
+    // ─────────────────────────────────────────────────────────────
+    private void cambiarVista(JPanel panel) {
+        Container cont = obtenerContenedorVista();
+
+        if (!(cont.getLayout() instanceof AbsoluteLayout)) {
+            cont.setLayout(new AbsoluteLayout());
+        }
+
+        cont.removeAll();
+
+        int w = cont.getWidth() > 0 ? cont.getWidth() : 1230;
+        int h = cont.getHeight() > 0 ? cont.getHeight() : 720;
+
+        panel.setSize(w, h);
+        panel.setPreferredSize(new Dimension(w, h));
+        cont.add(panel, new AbsoluteConstraints(0, 0, w, h));
+
+        cont.revalidate();
+        cont.repaint();
+    }
+
+    // Intenta usar un JPanel público llamado "contenedor"; si no, usa el content pane
+    private Container obtenerContenedorVista() {
+        Object vista = modelo.getVista();
+        try {
+            java.lang.reflect.Field f = vista.getClass().getField("contenedor");
+            Object pnl = f.get(vista);
+            if (pnl instanceof Container) return (Container) pnl;
+        } catch (NoSuchFieldException | IllegalAccessException ignore) {
+            // cae al contentPane
+        }
+        // Si la vista es un JFrame:
+        if (vista instanceof JFrame) return ((JFrame) vista).getContentPane();
+        // Si la vista es un JDialog:
+        if (vista instanceof JDialog) return ((JDialog) vista).getContentPane();
+        // Último recurso: crear un panel contenedor en caliente (no debería pasar)
+        return new JPanel(new AbsoluteLayout());
     }
 }

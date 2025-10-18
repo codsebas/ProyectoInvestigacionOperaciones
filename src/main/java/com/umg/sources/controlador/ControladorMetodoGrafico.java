@@ -29,7 +29,7 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
         panel.setSize(1230, 720);
         panel.setLocation(0, 0);
         vista.contenedor.removeAll();
-        vista.contenedor.add(panel, BorderLayout.CENTER);
+        vista.contenedor.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1230, 720));
         vista.contenedor.revalidate();
         vista.contenedor.repaint();
     }
@@ -45,7 +45,9 @@ public class ControladorMetodoGrafico implements ActionListener, MouseListener {
         var v = modelo.getVista(); // atajo
 
         if (e.getComponent().equals(v.BtnMenu)) {
-            System.out.println("Menu");
+            this.vista = v; // aseguramos que cambiarVista use la vista actual
+            if (vistaMenu == null) vistaMenu = new VistaMenu();
+            cambiarVista(vistaMenu);
             return;
         }
 
